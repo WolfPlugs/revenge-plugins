@@ -1,6 +1,6 @@
 # WolfPlugs for Revenge
 
-Global Badges adds profile badges from other Discord clients and BadgeVault to Revenge Next.
+Bunch of plugins from wolf which are published before going to the main repo or not
 
 ## Install
 
@@ -8,7 +8,7 @@ Add this repository in Revenge's plugin repository settings:
 
 https://plugins.obamabot.me/revenge-plugins
 
-Install Global Badges, then reload Revenge.
+Install wolf plugins, then reload Revenge.
 
 ## Development
 
@@ -33,6 +33,6 @@ The release workflow can also be run manually. Published versions are kept for e
 
 ## Credits and license
 
-Global Badges is adapted from Wolfie and thororen's Vendetta plugin. The repository tooling is derived from [Revenge Community Plugins](https://github.com/revenge-mod/revenge-community-plugins).
+The repository tooling is derived from [Revenge Community Plugins](https://github.com/revenge-mod/revenge-community-plugins).
 
 Licensed under [GPL-3.0](LICENSE). Original Git history and attribution are preserved.
