@@ -13,7 +13,7 @@
       },
       "versions": {
         "1.0.2": {
-          "url": "https://wolfplugs.github.io/revenge-plugins/pool/wolfie.global-badges@1.0.2.zip",
+          "url": "https://plugins.obamabot.me/revenge-plugins/pool/wolfie.global-badges@1.0.2.zip",
           "sha256": "753e1d525c392e209e799c2d90d212ca8808b9325c1d4a55737ee84af76ea6a3",
           "size": 2589,
           "dependencies": {
