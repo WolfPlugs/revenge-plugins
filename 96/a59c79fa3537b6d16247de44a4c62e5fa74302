@@ -1,0 +1,35 @@
+.github/workflows/validate.yml
+  s_cf448b5637a0b2::t_5e60af0f1d1d52 5-8,16-21
+.github/workflows/release.yml
+  s_cf448b5637a0b2::t_5e60af0f1d1d52 27,42,53-60
+package.json
+  s_cf448b5637a0b2::t_5e60af0f1d1d52 2,12-13,17-18
+README.md
+  s_cf448b5637a0b2::t_5e60af0f1d1d52 1-38
+.github/workflows/deploy-pages.yml
+  s_cf448b5637a0b2::t_5e60af0f1d1d52 1-30
+.github/workflows/publish-index.yml
+  s_cf448b5637a0b2::t_5e60af0f1d1d52 29,34-41
+repo.config.json
+  s_cf448b5637a0b2::t_5e60af0f1d1d52 2-3
+scripts/package.mjs
+  s_cf448b5637a0b2::t_5e60af0f1d1d52 1-17
+bun.lock
+  s_cf448b5637a0b2::t_3e0d2c635f9bb2 10,412,856-857
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "96a59c79fa3537b6d16247de44a4c62e5fa74302",
+  "prompts": {},
+  "sessions": {
+    "s_cf448b5637a0b2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1270b-3680-72c2-a886-7ffc51eeb374",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "Wolfkid200444 <32025746+Wolfkid200444@users.noreply.github.com>"
+    }
+  }
+}
