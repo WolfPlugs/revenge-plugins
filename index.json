@@ -1,0 +1,31 @@
+{
+  "format": 1,
+  "name": "WolfPlugs",
+  "description": "Wolfie's plugins for Revenge Next.",
+  "plugins": {
+    "wolfie.global-badges": {
+      "name": "Global Badges",
+      "description": "Show profile badges from other Discord clients and BadgeVault.",
+      "author": "Wolfie <347096063569559553>",
+      "icon": "AwardIcon",
+      "channels": {
+        "latest": "1.0.2"
+      },
+      "versions": {
+        "1.0.2": {
+          "url": "https://wolfplugs.github.io/revenge-plugins/pool/wolfie.global-badges@1.0.2.zip",
+          "sha256": "753e1d525c392e209e799c2d90d212ca8808b9325c1d4a55737ee84af76ea6a3",
+          "size": 2589,
+          "dependencies": {
+            "revenge.api": {
+              "version": ">=1 <2"
+            },
+            "discord": {
+              "version": "*"
+            }
+          }
+        }
+      }
+    }
+  }
+}
