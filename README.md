@@ -6,7 +6,7 @@ Global Badges adds profile badges from other Discord clients and BadgeVault to R
 
 Add this repository in Revenge's plugin repository settings:
 
-https://wolfplugs.github.io/revenge-plugins
+https://plugins.obamabot.me/revenge-plugins
 
 Install Global Badges, then reload Revenge.
 
