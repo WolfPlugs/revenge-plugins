@@ -1,0 +1,15 @@
+README.md
+  h_0d2b7dea709e7c 11,36
+  h_0d2b7dea709e7c 3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "35fbe5227e6cb0747f83a7e160b8f6245c47f2b0",
+  "prompts": {},
+  "humans": {
+    "h_0d2b7dea709e7c": {
+      "author": "Wolfkid200444 <32025746+Wolfkid200444@users.noreply.github.com>"
+    }
+  }
+}
