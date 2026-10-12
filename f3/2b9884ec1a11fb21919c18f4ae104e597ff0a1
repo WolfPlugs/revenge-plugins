@@ -1,0 +1,26 @@
+tests/sound-controls.test.ts
+  s_cf448b5637a0b2::t_d1726fb0de4042 56,65-74
+  s_cf448b5637a0b2::t_5d52c355c3e716 75
+plugins/sound-controls/sounds.ts
+  s_cf448b5637a0b2::t_d1726fb0de4042 63-65,67-70
+  s_cf448b5637a0b2::t_7c2f82c5faaf71 2-29,35-62,66
+plugins/sound-controls/settings.tsx
+  s_cf448b5637a0b2::t_0784dcfda95d53 23,25-26
+  s_cf448b5637a0b2::t_36af0ad49f14cf 19
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f32b9884ec1a11fb21919c18f4ae104e597ff0a1",
+  "prompts": {},
+  "sessions": {
+    "s_cf448b5637a0b2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1270b-3680-72c2-a886-7ffc51eeb374",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "Wolfkid200444 <32025746+Wolfkid200444@users.noreply.github.com>"
+    }
+  }
+}
