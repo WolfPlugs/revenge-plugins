@@ -1,8 +1,10 @@
 import { getModules } from '@revenge-mod/modules/finders'
 import { withProps } from '@revenge-mod/modules/finders/filters'
 import { instead } from '@revenge-mod/patcher'
+import { isPreview, registerSoundFactory } from './preview'
 import SettingsComponent from './settings'
 import { DefaultSettings, shouldMute } from './sounds'
+import type { SoundFactory } from './preview'
 import type { Settings } from './sounds'
 
 type MobileAudioSound = {
@@ -19,6 +21,16 @@ type SoundModule = {
 export default plugin<{ jsonStorage: Settings }>({
 	jsonStorage: { load: true, default: DefaultSettings },
 	start({ cleanup, jsonStorage, plugin }) {
+		cleanup(
+			getModules(
+				withProps<SoundFactory>(
+					'createSound',
+					'createSoundForPack',
+					'playSound',
+				),
+				module => cleanup(registerSoundFactory(module)),
+			),
+		)
 		cleanup(
 			getModules(
 				withProps<SoundModule>('MobileAudioSound'),
@@ -41,6 +53,7 @@ export default plugin<{ jsonStorage: Settings }>({
 					const muted = (sound: unknown) =>
 						typeof sound === 'object' &&
 						sound !== null &&
+						!isPreview(sound) &&
 						'name' in sound &&
 						shouldMute(sound.name, jsonStorage.cache ?? DefaultSettings)
 					for (const method of ['play', 'loop'] as const) {
