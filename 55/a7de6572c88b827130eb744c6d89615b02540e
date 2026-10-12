@@ -1,0 +1,23 @@
+plugins/global-badges/badges.ts
+  s_44531abc635bf7::t_d8e5b578518227 25,72-75
+plugins/global-badges/index.ts
+  s_44531abc635bf7::t_a363c3500812a4 1,39,49-50,122-128
+plugins/global-badges/settings.tsx
+  s_44531abc635bf7::t_ee39fb31c0bfc4 40-44
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "55a7de6572c88b827130eb744c6d89615b02540e",
+  "prompts": {},
+  "sessions": {
+    "s_44531abc635bf7": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a13067-c4e2-7363-8972-7eefc23c857f",
+        "model": "unknown"
+      },
+      "human_author": "Wolfkid200444 <32025746+Wolfkid200444@users.noreply.github.com>"
+    }
+  }
+}
