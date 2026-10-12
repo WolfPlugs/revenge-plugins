@@ -1,17 +1,41 @@
-import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { spawnSync } from 'node:child_process'
+import {
+	existsSync,
+	mkdirSync,
+	readdirSync,
+	readFileSync,
+	writeFileSync,
+} from 'node:fs'
 import { zipSync } from 'fflate'
 
-const directory = 'plugins/global-badges'
-const manifest = JSON.parse(readFileSync(`${directory}/manifest.json`, 'utf8'))
-const script = manifest.dist.script
-const output = `build/dist/${manifest.id}@${manifest.version}.zip`
-
 mkdirSync('build/dist', { recursive: true })
-writeFileSync(
-	output,
-	zipSync({
-		'manifest.json': readFileSync(`${directory}/manifest.json`),
-		[script]: readFileSync(`${directory}/build/js/${script}`),
-	}),
-)
-console.log(`Packaged ${output}`)
+for (const entry of readdirSync('plugins', { withFileTypes: true })) {
+	const directory = `plugins/${entry.name}`
+	if (!entry.isDirectory() || !existsSync(`${directory}/manifest.json`))
+		continue
+	const manifestBytes = readFileSync(`${directory}/manifest.json`)
+	const manifest = JSON.parse(manifestBytes.toString())
+	const files = { 'manifest.json': manifestBytes }
+	if (manifest.dist.script) {
+		files[manifest.dist.script] = readFileSync(
+			`${directory}/build/js/${manifest.dist.script}`,
+		)
+	}
+	if (manifest.dist.android) {
+		if (manifest.id !== 'wolfie.nsfw-blur')
+			throw new Error(`No native builder for ${manifest.id}`)
+		const result = spawnSync(
+			process.execPath,
+			['scripts/build-nsfw-native.mjs'],
+			{ stdio: 'inherit' },
+		)
+		if (result.error) throw result.error
+		if (result.status !== 0) process.exit(result.status ?? 1)
+		files[manifest.dist.android.path] = readFileSync(
+			`${directory}/build/native/${manifest.dist.android.path}`,
+		)
+	}
+	const output = `build/dist/${manifest.id}@${manifest.version}.zip`
+	writeFileSync(output, zipSync(files))
+	console.log(`Packaged ${output}`)
+}

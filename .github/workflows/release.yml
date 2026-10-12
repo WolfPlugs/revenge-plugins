@@ -28,6 +28,14 @@ jobs:
 
       - uses: oven-sh/setup-bun@v2
 
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up native plugin compiler
+        run: bash .github/scripts/setup-native.sh
+
       - run: bun install --frozen-lockfile
 
       - name: Check out the published pool
