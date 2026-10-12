@@ -76,7 +76,7 @@ export type Settings = {
 }
 
 export const DefaultSettings: Settings = {
-	muted: { ringtone: true, join: true },
+	muted: {},
 }
 
 export function shouldMute(name: unknown, settings: unknown): boolean {
