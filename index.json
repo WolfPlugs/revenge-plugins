@@ -83,7 +83,7 @@
       "author": "Wolfie <347096063569559553> (https://wolfies.org/ \"Website\") (https://github.com/Wolfkid200444 \"GitHub\")",
       "icon": "SoundboardSlashIcon",
       "channels": {
-        "latest": "1.0.2"
+        "latest": "1.0.3"
       },
       "versions": {
         "1.0.0": {
@@ -116,6 +116,19 @@
           "url": "https://plugins.obamabot.me/revenge-plugins/pool/wolfie.sound-controls@1.0.2.zip",
           "sha256": "7dbbe4f11f6625a07c61e2b86deccce90c06af13e49522721826dfad7bb76b20",
           "size": 2440,
+          "dependencies": {
+            "revenge.api": {
+              "version": ">=1 <2"
+            },
+            "discord": {
+              "version": "*"
+            }
+          }
+        },
+        "1.0.3": {
+          "url": "https://plugins.obamabot.me/revenge-plugins/pool/wolfie.sound-controls@1.0.3.zip",
+          "sha256": "be228766b65fdaf189f02bdab5f8da12a1eb662c9fce26990302432f23e96de5",
+          "size": 2431,
           "dependencies": {
             "revenge.api": {
               "version": ">=1 <2"
