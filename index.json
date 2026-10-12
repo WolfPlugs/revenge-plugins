@@ -70,13 +70,26 @@
       "author": "Wolfie <347096063569559553> (https://wolfies.org/ \"Website\") (https://github.com/Wolfkid200444 \"GitHub\")",
       "icon": "SoundboardSlashIcon",
       "channels": {
-        "latest": "1.0.0"
+        "latest": "1.0.1"
       },
       "versions": {
         "1.0.0": {
           "url": "https://plugins.obamabot.me/revenge-plugins/pool/wolfie.sound-controls@1.0.0.zip",
           "sha256": "2e20e281afa2a621baf1a8c49b663d17fdbf8ae3cfa98c13728a6615222cc076",
           "size": 1836,
+          "dependencies": {
+            "revenge.api": {
+              "version": ">=1 <2"
+            },
+            "discord": {
+              "version": "*"
+            }
+          }
+        },
+        "1.0.1": {
+          "url": "https://plugins.obamabot.me/revenge-plugins/pool/wolfie.sound-controls@1.0.1.zip",
+          "sha256": "eedfc085404090783c5107631496544383321dc16aca383493c5ea0b46d471b7",
+          "size": 2314,
           "dependencies": {
             "revenge.api": {
               "version": ">=1 <2"
