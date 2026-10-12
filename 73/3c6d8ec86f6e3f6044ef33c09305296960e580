@@ -1,0 +1,23 @@
+plugins/sound-controls/README.md
+  s_628c0c9a3443aa::t_8cb6e87446f68d 3
+plugins/sound-controls/manifest.json
+  s_628c0c9a3443aa::t_b1e9a982a2dee3 8
+plugins/sound-controls/sounds.ts
+  s_628c0c9a3443aa::t_b1e9a982a2dee3 79
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "733c6d8ec86f6e3f6044ef33c09305296960e580",
+  "prompts": {},
+  "sessions": {
+    "s_628c0c9a3443aa": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a13056-1840-7c73-a820-2f9a5647f650",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "Wolfkid200444 <32025746+Wolfkid200444@users.noreply.github.com>"
+    }
+  }
+}
