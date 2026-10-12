@@ -1,29 +1,73 @@
 export const SoundGroups = {
-	ringtone: { label: 'Incoming ringtone', names: ['call_ringing'] },
-	calling: { label: 'Outgoing ringing', names: ['call_calling'] },
-	join: { label: 'Voice join', names: ['user_join'] },
-	leave: { label: 'Voice leave', names: ['user_leave'] },
-	move: { label: 'Voice move', names: ['user_moved'] },
-	disconnect: { label: 'Disconnect', names: ['disconnect'] },
-	reconnect: { label: 'Reconnect', names: ['reconnect'] },
+	ringtone: {
+		label: 'Incoming ringtone',
+		names: ['call_ringing'],
+	},
+	calling: {
+		label: 'Outgoing ringing',
+		names: ['call_calling'],
+	},
+	join: {
+		label: 'Voice join',
+		names: ['user_join'],
+	},
+	leave: {
+		label: 'Voice leave',
+		names: ['user_leave'],
+	},
+	move: {
+		label: 'Voice move',
+		names: ['user_moved'],
+	},
+	disconnect: {
+		label: 'Disconnect',
+		names: ['disconnect'],
+	},
+	reconnect: {
+		label: 'Reconnect',
+		names: ['reconnect'],
+	},
 	mute: { label: 'Mute', names: ['mute'] },
 	unmute: { label: 'Unmute', names: ['unmute'] },
 	deafen: { label: 'Deafen', names: ['deafen'] },
 	undeafen: { label: 'Undeafen', names: ['undeafen'] },
 	cameraOn: { label: 'Camera on', names: ['camera_on'] },
-	cameraOff: { label: 'Camera off', names: ['camera_off'] },
-	streamStarted: { label: 'Stream started', names: ['stream_started'] },
-	streamEnded: { label: 'Stream ended', names: ['stream_ended'] },
-	streamJoin: { label: 'Stream viewer joined', names: ['stream_user_joined'] },
-	streamLeave: { label: 'Stream viewer left', names: ['stream_user_left'] },
-	pttStart: { label: 'Push-to-talk start', names: ['ptt_start'] },
-	pttStop: { label: 'Push-to-talk stop', names: ['ptt_stop'] },
-	message1: { label: 'Message 1', names: ['message1'] },
-	message2: { label: 'Message 2', names: ['message2'] },
-	message3: { label: 'Message 3', names: ['message3'] },
-	mention1: { label: 'Mention 1', names: ['mention1'] },
-	mention2: { label: 'Mention 2', names: ['mention2'] },
-	mention3: { label: 'Mention 3', names: ['mention3'] },
+	cameraOff: {
+		label: 'Camera off',
+		names: ['camera_off'],
+	},
+	streamStarted: {
+		label: 'Stream started',
+		names: ['stream_started'],
+	},
+	streamEnded: {
+		label: 'Stream ended',
+		names: ['stream_ended'],
+	},
+	streamJoin: {
+		label: 'Stream viewer joined',
+		names: ['stream_user_joined'],
+	},
+	streamLeave: {
+		label: 'Stream viewer left',
+		names: ['stream_user_left'],
+	},
+	pttStart: {
+		label: 'Push-to-talk start',
+		names: ['ptt_start'],
+	},
+	pttStop: {
+		label: 'Push-to-talk stop',
+		names: ['ptt_stop'],
+	},
+	messages: {
+		label: 'Message',
+		names: ['message1', 'message2', 'message3'],
+	},
+	mentions: {
+		label: 'Mention',
+		names: ['mention1', 'mention2', 'mention3'],
+	},
 	discodo: { label: 'Discodo', names: ['discodo'] },
 } satisfies Record<string, { label: string; names: string[] }>
 

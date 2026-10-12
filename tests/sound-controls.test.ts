@@ -53,7 +53,7 @@ describe('Sound Controls filtering', () => {
 	})
 
 	test('handles message sound packs and unexpected inputs', () => {
-		expect(shouldMute('lofi_message1', { muted: { message1: true } })).toBe(
+		expect(shouldMute('lofi_message1', { muted: { messages: true } })).toBe(
 			true,
 		)
 		for (const value of [null, undefined, {}, { muted: null }]) {
@@ -61,4 +61,15 @@ describe('Sound Controls filtering', () => {
 		}
 		expect(shouldMute(123, DefaultSettings)).toBe(false)
 	})
+})
+
+test('message and mention switches each cover all variants separately', () => {
+	for (const name of ['message1', 'message2', 'message3', 'lofi_message1']) {
+		expect(shouldMute(name, { muted: { messages: true } })).toBe(true)
+		expect(shouldMute(name, { muted: { mentions: true } })).toBe(false)
+	}
+	for (const name of ['mention1', 'mention2', 'mention3']) {
+		expect(shouldMute(name, { muted: { mentions: true } })).toBe(true)
+		expect(shouldMute(name, { muted: { messages: true } })).toBe(false)
+	}
 })

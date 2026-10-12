@@ -16,14 +16,14 @@ export default function SettingsComponent({ api: { jsonStorage } }: Props) {
 			contentContainerStyle={{ paddingBottom: 24 }}
 		>
 			<Page>
-				<Design.TableRowGroup title="Mute sounds">
+				<Design.TableRowGroup>
 					{Object.entries(SoundGroups).map(([group, { label }]) => (
 						<Design.TableSwitchRow
 							key={group}
-							label={label}
+							label={`Disable ${label.toLowerCase()} sound`}
 							value={settings.muted[group as keyof typeof SoundGroups] ?? false}
-							onValueChange={enabled =>
-								jsonStorage.set({ muted: { [group]: enabled } })
+							onValueChange={disabled =>
+								jsonStorage.set({ muted: { [group]: disabled } })
 							}
 						/>
 					))}
