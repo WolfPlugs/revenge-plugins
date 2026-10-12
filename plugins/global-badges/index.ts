@@ -1,4 +1,3 @@
-import { NetInfo } from '@revenge-mod/externals/react-native-community'
 import { getJsonStorage } from '@revenge-mod/json-storage'
 import { getModules } from '@revenge-mod/modules/finders'
 import { withName } from '@revenge-mod/modules/finders/filters'
@@ -36,15 +35,17 @@ async function fetchBadges(
 	timeout = setTimeout(() => requestController.abort(), 30_000)
 
 	const storage = await jsonStorage.get()
-	const netInfo = await NetInfo.fetch()
-
-	if (
-		(netInfo.details?.isConnectionExpensive &&
-			!jsonStorage.cache?.updateOnMetered) ||
-		Date.now() - (storage.lastFetched ?? 0) < RefreshInterval
-	) {
-		return await cacheStorage.get()
+	let cached: AnyObject | undefined
+	try {
+		const json = await cacheStorage.get()
+		parseBadges(json)
+		cached = json
+	} catch {
+		// An unreadable or outdated cache must not prevent a fresh request.
 	}
+
+	if (cached && Date.now() - (storage.lastFetched ?? 0) < RefreshInterval)
+		return cached
 
 	const response = await fetch('https://badges.equicord.org/users', {
 		signal: requestController.signal,
@@ -55,7 +56,7 @@ async function fetchBadges(
 
 	const json = await response.json()
 	parseBadges(json)
-	await cacheStorage.set(json)
+	await cacheStorage.set(json, true)
 	await jsonStorage.set({ lastFetched: Date.now() })
 	return json
 }
@@ -91,7 +92,6 @@ export default plugin<{ jsonStorage: Settings }>({
 
 		const cacheStorage = getJsonStorage(
 			`${pluginStorageDirFor(plugin.manifest.id)}/cache.json`,
-			{ default: { users: {} } },
 		)
 
 		const store = createBadgeStore()
