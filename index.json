@@ -39,6 +39,54 @@
           }
         }
       }
+    },
+    "wolfie.nsfw-blur": {
+      "name": "NSFW Blur",
+      "description": "Blur images and videos in NSFW channels until you tap to reveal them.",
+      "author": "Wolfie <347096063569559553> (https://wolfies.org/ \"Website\") (https://github.com/Wolfkid200444 \"GitHub\")",
+      "icon": "SpoilerIcon",
+      "channels": {
+        "latest": "1.0.0"
+      },
+      "versions": {
+        "1.0.0": {
+          "url": "https://plugins.obamabot.me/revenge-plugins/pool/wolfie.nsfw-blur@1.0.0.zip",
+          "sha256": "ac38fe4266e953d3516b0d26b1a1b2de8dcad3cf88a66963f6193a1bf2a06aa6",
+          "size": 9889,
+          "dependencies": {
+            "revenge.api": {
+              "version": ">=1 <2"
+            },
+            "discord": {
+              "version": "*"
+            }
+          }
+        }
+      }
+    },
+    "wolfie.sound-controls": {
+      "name": "Sound Controls",
+      "description": "Mute individual call effects, ringtones, and in-app notification sounds.",
+      "author": "Wolfie <347096063569559553> (https://wolfies.org/ \"Website\") (https://github.com/Wolfkid200444 \"GitHub\")",
+      "icon": "SoundboardSlashIcon",
+      "channels": {
+        "latest": "1.0.0"
+      },
+      "versions": {
+        "1.0.0": {
+          "url": "https://plugins.obamabot.me/revenge-plugins/pool/wolfie.sound-controls@1.0.0.zip",
+          "sha256": "2e20e281afa2a621baf1a8c49b663d17fdbf8ae3cfa98c13728a6615222cc076",
+          "size": 1836,
+          "dependencies": {
+            "revenge.api": {
+              "version": ">=1 <2"
+            },
+            "discord": {
+              "version": "*"
+            }
+          }
+        }
+      }
     }
   }
 }
