@@ -6,10 +6,10 @@
     "wolfie.global-badges": {
       "name": "Global Badges",
       "description": "Show profile badges from other Discord clients and BadgeVault.",
-      "author": "Wolfie <347096063569559553>",
+      "author": "Wolfie <347096063569559553> (https://wolfies.org/ \"Website\") (https://github.com/Wolfkid200444 \"GitHub\")",
       "icon": "AwardIcon",
       "channels": {
-        "latest": "1.0.3"
+        "latest": "1.0.4"
       },
       "versions": {
         "1.0.2": {
@@ -29,6 +29,19 @@
           "url": "https://plugins.obamabot.me/revenge-plugins/pool/wolfie.global-badges@1.0.3.zip",
           "sha256": "cdb3b8697c1d4f6b9bfc14df6c9e9ced47c633d771bffcfdf2f0f39a1d41d672",
           "size": 2919,
+          "dependencies": {
+            "revenge.api": {
+              "version": ">=1 <2"
+            },
+            "discord": {
+              "version": "*"
+            }
+          }
+        },
+        "1.0.4": {
+          "url": "https://plugins.obamabot.me/revenge-plugins/pool/wolfie.global-badges@1.0.4.zip",
+          "sha256": "5afc7ad9148a0279e1132ac3d02448d306d5ff8dbf7d365d930b1c66acef9a3f",
+          "size": 2859,
           "dependencies": {
             "revenge.api": {
               "version": ">=1 <2"
