@@ -1,4 +1,7 @@
+import { SoundGroups } from './sounds'
+
 export type PreviewSound = {
+	usage: string
 	playWithListener(): Promise<boolean>
 	stop(): void
 }
@@ -29,10 +32,23 @@ export function stopPreview(): void {
 	stopCurrent?.()
 }
 
+const previewNames = new Set(
+	Object.entries(SoundGroups).flatMap(([group, { names }]) =>
+		group === 'discodo' ? [] : names,
+	),
+)
+
+export function canPreview(name: string): boolean {
+	return previewNames.has(name)
+}
+
 export async function playPreview(name: string): Promise<void> {
+	if (!canPreview(name))
+		throw new Error('This sound is not available for preview on Android.')
 	if (!factory) throw new Error("Discord's sound player is not available yet.")
 	stopPreview()
 	const sound = factory.createSound(name, name)
+	sound.usage = 'media'
 	previews.add(sound)
 	let stopped = false
 	const stop = () => {

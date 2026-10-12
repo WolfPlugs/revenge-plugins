@@ -8,4 +8,4 @@ Voice audio, media playback, and soundboard audio are unaffected. Android notifi
 
 Disabling the plugin restores normal playback.
 
-Tap a Play button to hear a classic sound even when its mute switch is enabled. Message and mention variants have separate previews. Previews stop after five seconds, when another preview starts, or when you leave settings. Preview playback uses the phone's current sound volume and routing.
+Tap a Play button to listen to the sounds inside settings like on desktop
