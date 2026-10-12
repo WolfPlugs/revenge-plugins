@@ -1,0 +1,19 @@
+plugins/global-badges/manifest.json
+  s_44531abc635bf7::t_410a837ed55c9e 11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "886c543f735bb78f662385ba58c7411b2c1deb12",
+  "prompts": {},
+  "sessions": {
+    "s_44531abc635bf7": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a13067-c4e2-7363-8972-7eefc23c857f",
+        "model": "unknown"
+      },
+      "human_author": "Wolfkid200444 <32025746+Wolfkid200444@users.noreply.github.com>"
+    }
+  }
+}
