@@ -1,0 +1,21 @@
+plugins/global-badges/index.ts
+  s_44531abc635bf7::t_bdefe836e730de 16,38-44,47-49,58-60,67,165-168
+plugins/global-badges/manifest.json
+  s_44531abc635bf7::t_2bd80d8c2819d1 11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "500097eee0ebbd923cf913a87b8bd2b174256ae1",
+  "prompts": {},
+  "sessions": {
+    "s_44531abc635bf7": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a13067-c4e2-7363-8972-7eefc23c857f",
+        "model": "unknown"
+      },
+      "human_author": "Wolfkid200444 <32025746+Wolfkid200444@users.noreply.github.com>"
+    }
+  }
+}
