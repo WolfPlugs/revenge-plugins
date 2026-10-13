@@ -1,0 +1,38 @@
+plugins/image-utils/viewer/zoom.ts
+  s_3e6e438992b345::t_448860eaf35c13 1-25
+plugins/image-utils/menus/viewer-menu.tsx
+  s_3e6e438992b345::t_448860eaf35c13 1-69
+plugins/image-utils/viewer/rotation-surface.tsx
+  s_3e6e438992b345::t_448860eaf35c13 68-72,74-75
+plugins/image-utils/utils/media.ts
+  s_3e6e438992b345::t_448860eaf35c13 1-38
+plugins/image-utils/viewer/touch-transform.ts
+  s_3e6e438992b345::t_448860eaf35c13 1-74
+plugins/image-utils/favorites/patches.ts
+  s_3e6e438992b345::t_448860eaf35c13 1-152
+plugins/image-utils/search/sheets.tsx
+  s_3e6e438992b345::t_448860eaf35c13 1-81
+plugins/image-utils/index.tsx
+  s_3e6e438992b345::t_448860eaf35c13 5-12
+  s_3e6e438992b345::t_b2bf6becd7b083 24
+plugins/image-utils/menus/attachment-menu.tsx
+  s_3e6e438992b345::t_448860eaf35c13 1-106
+plugins/image-utils/search/search-icon.tsx
+  s_3e6e438992b345::t_448860eaf35c13 1-17
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "79ad845e86a915b61023412243cf654e798e3655",
+  "prompts": {},
+  "sessions": {
+    "s_3e6e438992b345": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a132be-e703-7053-8597-400e7ad8e87e",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "Wolfkid200444 <32025746+Wolfkid200444@users.noreply.github.com>"
+    }
+  }
+}
