@@ -3,9 +3,9 @@ import { getModules } from '@revenge-mod/modules/finders'
 import { withName } from '@revenge-mod/modules/finders/filters'
 import { instead } from '@revenge-mod/patcher'
 import { Children, cloneElement, isValidElement } from 'react'
-import { readImageSource } from './media'
-import SearchImageIcon from './search-icon'
-import { openSearch } from './sheets'
+import SearchImageIcon from '../search/search-icon'
+import { openSearch } from '../search/sheets'
+import { readImageSource } from '../utils/media'
 import type { ReactNode } from 'react'
 
 export function patchViewerLongPress(

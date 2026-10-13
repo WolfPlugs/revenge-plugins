@@ -1,6 +1,7 @@
 import { ActionSheetActionCreators } from '@revenge-mod/discord/actions'
 import { Design } from '@revenge-mod/discord/design'
 import { Image, Linking } from 'react-native'
+import { searchEngines } from '../utils/media'
 import bing from './icons/bing.png'
 import googleLens from './icons/google-lens.png'
 import imgOps from './icons/imgops.png'
@@ -8,7 +9,6 @@ import iqdb from './icons/iqdb.png'
 import sauceNAO from './icons/saucenao.png'
 import tinEye from './icons/tineye.png'
 import yandex from './icons/yandex.png'
-import { searchEngines } from './media'
 
 const providers = [
 	{

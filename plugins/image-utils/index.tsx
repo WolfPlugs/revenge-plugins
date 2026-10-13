@@ -2,13 +2,14 @@ import { getModules } from '@revenge-mod/modules/finders'
 import { withProps } from '@revenge-mod/modules/finders/filters'
 import { instead } from '@revenge-mod/patcher'
 import { isValidElement } from 'react'
-import { patchAttachmentMenu } from './attachment-menu'
-import { readImageSource } from './media'
-import RotationSurface, { resetRotations } from './rotation-surface'
-import SearchImageIcon from './search-icon'
-import { closeSheets, openSearch } from './sheets'
-import { patchViewerLongPress } from './viewer-menu'
-import { patchZoomLimit } from './zoom'
+import { patchFavorites } from './favorites/patches'
+import { patchAttachmentMenu } from './menus/attachment-menu'
+import { patchViewerLongPress } from './menus/viewer-menu'
+import SearchImageIcon from './search/search-icon'
+import { closeSheets, openSearch } from './search/sheets'
+import { readImageSource } from './utils/media'
+import RotationSurface, { resetRotations } from './viewer/rotation-surface'
+import { patchZoomLimit } from './viewer/zoom'
 import type { PluginOptions } from '@revenge-mod/plugins/types'
 import type { ReactNode } from 'react'
 
@@ -20,6 +21,7 @@ export default {
 		patchAttachmentMenu(cleanup, reportError)
 		patchViewerLongPress(cleanup, reportError)
 		patchZoomLimit(cleanup)
+		patchFavorites(cleanup)
 		cleanup(
 			getModules(
 				withProps<{

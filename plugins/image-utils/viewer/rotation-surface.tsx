@@ -65,18 +65,14 @@ export default function RotationSurface({
 			props.current.onZoomChanged?.({ nativeEvent: { zoomScale: value.scale } })
 		}
 	}
+	const resetTransform = () => {
+		previous.current = []
+		transform.current = initialTransform()
+		apply()
+	}
 	useImperativeHandle(viewer.props.ref, () => ({
-		zoomTo() {
-			transform.current = {
-				...transform.current,
-				scale: 2,
-			}
-			apply()
-		},
-		unzoom() {
-			transform.current = { ...transform.current, scale: 1, x: 0, y: 0 }
-			apply()
-		},
+		zoomTo: resetTransform,
+		unzoom: resetTransform,
 	}))
 	const responder = useMemo(() => {
 		const capture = (event: GestureResponderEvent) =>
