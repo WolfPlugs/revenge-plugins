@@ -53,6 +53,30 @@
         }
       }
     },
+    "wolfie.image-utils": {
+      "name": "ImageUtils",
+      "description": "Rotate images with two fingers in Discord’s viewer and reverse search from the image menu.",
+      "author": "Wolfie <347096063569559553> (https://wolfies.org/ \"Website\") (https://github.com/Wolfkid200444 \"GitHub\")",
+      "icon": "ImageIcon",
+      "channels": {
+        "latest": "1.0.0"
+      },
+      "versions": {
+        "1.0.0": {
+          "url": "https://plugins.obamabot.me/revenge-plugins/pool/wolfie.image-utils@1.0.0.zip",
+          "sha256": "43f6e61252d670f9b9634a5d31e9e981370946d909a10afb759cbf825b749fae",
+          "size": 15982,
+          "dependencies": {
+            "revenge.api": {
+              "version": ">=1 <2"
+            },
+            "discord": {
+              "version": "*"
+            }
+          }
+        }
+      }
+    },
     "wolfie.nsfw-blur": {
       "name": "NSFW Blur",
       "description": "Blur images and videos in NSFW channels until you tap to reveal them.",
