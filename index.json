@@ -59,13 +59,26 @@
       "author": "Wolfie <347096063569559553> (https://wolfies.org/ \"Website\") (https://github.com/Wolfkid200444 \"GitHub\")",
       "icon": "ImageIcon",
       "channels": {
-        "latest": "1.0.0"
+        "latest": "1.0.1"
       },
       "versions": {
         "1.0.0": {
           "url": "https://plugins.obamabot.me/revenge-plugins/pool/wolfie.image-utils@1.0.0.zip",
           "sha256": "43f6e61252d670f9b9634a5d31e9e981370946d909a10afb759cbf825b749fae",
           "size": 15982,
+          "dependencies": {
+            "revenge.api": {
+              "version": ">=1 <2"
+            },
+            "discord": {
+              "version": "*"
+            }
+          }
+        },
+        "1.0.1": {
+          "url": "https://plugins.obamabot.me/revenge-plugins/pool/wolfie.image-utils@1.0.1.zip",
+          "sha256": "26c00cdcd1460060b0fc3b2883682b1970e675d19f674596ee1326f372028b63",
+          "size": 16694,
           "dependencies": {
             "revenge.api": {
               "version": ">=1 <2"
