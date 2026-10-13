@@ -1,0 +1,106 @@
+import { Design } from '@revenge-mod/discord/design'
+import { getModules } from '@revenge-mod/modules/finders'
+import { withName } from '@revenge-mod/modules/finders/filters'
+import { instead } from '@revenge-mod/patcher'
+import { Children, cloneElement, isValidElement } from 'react'
+import { readImageSource } from './media'
+import SearchImageIcon from './search-icon'
+import { openSearch } from './sheets'
+import type { ReactNode } from 'react'
+
+export function patchAttachmentMenu(
+	cleanup: (callback: () => void) => void,
+	reportError: (error: unknown) => void,
+) {
+	cleanup(
+		getModules(
+			withName<(...args: unknown[]) => unknown>('LongPressMessageActionSheet'),
+			module => {
+				if (!('default' in module) || typeof module.default !== 'function')
+					return
+				cleanup(
+					instead(module, 'default', function (args, original) {
+						const result = Reflect.apply(original, this, args)
+						const props = args[0]
+						if (
+							typeof props !== 'object' ||
+							props === null ||
+							!('message' in props)
+						)
+							return result
+						const sources = attachmentSources(props)
+						const source = sources[0]
+						if (!source || !isValidElement<{ children?: ReactNode }>(result))
+							return result
+						const sheet = result.props.children
+						if (!isValidElement<{ children?: ReactNode }>(sheet)) return result
+						const groups = Children.toArray(sheet.props.children)
+						const group = groups[0]
+						if (!isValidElement<{ children?: ReactNode }>(group)) return result
+						const rows = Children.toArray(group.props.children)
+						const searchRows = sources.map((image, index) => (
+							<Design.ActionSheetRow
+								key={`image-utils-search-${image.uri}`}
+								label={
+									sources.length === 1
+										? 'Search image'
+										: `Search image ${index + 1}`
+								}
+								icon={
+									<Design.ActionSheetRow.Icon IconComponent={SearchImageIcon} />
+								}
+								onPress={() => openSearch(image.searchUri, reportError)}
+							/>
+						))
+						groups[0] = cloneElement(
+							group,
+							{},
+							...rows.slice(0, 2),
+							...searchRows,
+							...rows.slice(2),
+						)
+						return cloneElement(result, {}, cloneElement(sheet, {}, ...groups))
+					}),
+				)
+			},
+			{ returnNamespace: true, max: Infinity },
+		),
+	)
+}
+
+function attachmentSources(props: object) {
+	if ('selectedMedia' in props && props.selectedMedia != null) {
+		const media = props.selectedMedia
+		if (
+			typeof media !== 'object' ||
+			!('mediaType' in media) ||
+			media.mediaType !== 'image' ||
+			!('mediaUrl' in media)
+		)
+			return []
+		const source = readImageSource({ uri: media.mediaUrl })
+		return source ? [source] : []
+	}
+	if (
+		!('message' in props) ||
+		typeof props.message !== 'object' ||
+		props.message === null ||
+		!('attachments' in props.message) ||
+		!Array.isArray(props.message.attachments)
+	)
+		return []
+	return props.message.attachments.flatMap((attachment: unknown) => {
+		if (
+			typeof attachment !== 'object' ||
+			attachment === null ||
+			!('url' in attachment)
+		)
+			return []
+		const contentType =
+			'content_type' in attachment ? attachment.content_type : undefined
+		if (typeof contentType !== 'string' || !contentType.startsWith('image/'))
+			return []
+		const source = readImageSource({ uri: attachment.url, contentType })
+		return source ? [source] : []
+	})
+}
