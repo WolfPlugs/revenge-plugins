@@ -27,14 +27,12 @@ bunx biome check plugins scripts
 
 ## Releases
 
-Push to `main` after increasing the plugin version in `plugins/<plugin>/manifest.json`. GitHub Actions builds the ZIP, publishes it on `gh-pages`, and deploys the repository index and artifacts to GitHub Pages.
+Push to `main` after increasing the plugin version in `plugins/global-badges/manifest.json`. GitHub Actions builds the ZIP, publishes it on `gh-pages`, and deploys the repository index and artifacts to GitHub Pages.
 
 The release workflow can also be run manually. Published versions are kept for existing installs.
 
 ## Credits and license
 
 The repository tooling is derived from [Revenge Community Plugins](https://github.com/revenge-mod/revenge-community-plugins).
-
-Questify’s features and usage notices are inspired by [Equicord Questify](https://github.com/Equicord/Equicord/tree/main/src/equicordplugins/questify).
 
 Licensed under [GPL-3.0](LICENSE). Original Git history and attribution are preserved.
