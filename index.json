@@ -144,15 +144,28 @@
       "name": "Questify",
       "description": "Browse Discord quests, track progress, and auto-complete supported quests from their menus.",
       "author": "Wolfie <347096063569559553> (https://wolfies.org/ \"Website\") (https://github.com/Wolfkid200444 \"GitHub\")",
-      "icon": "GiftIcon",
+      "icon": "QuestsIcon",
       "channels": {
-        "latest": "1.0.0"
+        "latest": "1.0.2"
       },
       "versions": {
         "1.0.0": {
           "url": "https://plugins.obamabot.me/revenge-plugins/pool/wolfie.questify@1.0.0.zip",
           "sha256": "2acf99495bf585cb8492198c1698e4f5f48cd41672b26a96bae32070e79076c0",
           "size": 9398,
+          "dependencies": {
+            "revenge.api": {
+              "version": ">=1 <2"
+            },
+            "discord": {
+              "version": "*"
+            }
+          }
+        },
+        "1.0.2": {
+          "url": "https://plugins.obamabot.me/revenge-plugins/pool/wolfie.questify@1.0.2.zip",
+          "sha256": "07d301a11823b686b529cf0c4005299c4cf35a9116a41b7eb50dbe4e88d7b15c",
+          "size": 9074,
           "dependencies": {
             "revenge.api": {
               "version": ">=1 <2"
