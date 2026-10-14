@@ -5,7 +5,7 @@
 	"description": "Rotate images with two fingers in Discord’s viewer and reverse search from the image menu.",
 	"author": "Wolfie <347096063569559553> (https://wolfies.org/ \"Website\") (https://github.com/Wolfkid200444 \"GitHub\")",
 	"icon": "ImageIcon",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"dependencies": {
 		"revenge.api": {
 			"version": ">=1 <2"

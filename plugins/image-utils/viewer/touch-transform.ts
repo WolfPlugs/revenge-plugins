@@ -21,6 +21,7 @@ export function moveImage(
 	previous: readonly TouchPoint[],
 	next: readonly TouchPoint[],
 	maximumScale: number,
+	center: { x: number; y: number } = { x: 0, y: 0 },
 ): ImageTransform {
 	const before = [...previous].sort((a, b) =>
 		String(a.identifier).localeCompare(String(b.identifier)),
@@ -59,16 +60,26 @@ export function moveImage(
 		1,
 		Math.min(maximumScale, (current.scale * Math.hypot(newX, newY)) / distance),
 	)
+	const ratio = scale / current.scale
+	const turn = rotation - current.rotation
+	const oldCenterX = (a.pageX + a2.pageX) / 2 - center.x
+	const oldCenterY = (a.pageY + a2.pageY) / 2 - center.y
+	const newCenterX = (b.pageX + b2.pageX) / 2 - center.x
+	const newCenterY = (b.pageY + b2.pageY) / 2 - center.y
+	const anchorX = oldCenterX - current.x
+	const anchorY = oldCenterY - current.y
 	return {
 		rotation,
 		scale,
 		x:
 			scale === 1
 				? 0
-				: current.x + (b.pageX + b2.pageX - a.pageX - a2.pageX) / 2,
+				: newCenterX -
+					ratio * (Math.cos(turn) * anchorX - Math.sin(turn) * anchorY),
 		y:
 			scale === 1
 				? 0
-				: current.y + (b.pageY + b2.pageY - a.pageY - a2.pageY) / 2,
+				: newCenterY -
+					ratio * (Math.sin(turn) * anchorX + Math.cos(turn) * anchorY),
 	}
 }

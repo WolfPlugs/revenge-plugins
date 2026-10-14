@@ -16,7 +16,7 @@ import {
 import FullResolution from './full-resolution'
 import { initialTransform, moveImage } from './touch-transform'
 import { maximumImageZoom } from './zoom'
-import type { ReactElement, ReactNode, Ref } from 'react'
+import type { ElementRef, ReactElement, ReactNode, Ref } from 'react'
 import type { GestureResponderEvent, StyleProp, ViewStyle } from 'react-native'
 import type { TouchPoint } from './touch-transform'
 
@@ -39,13 +39,21 @@ export function resetRotations() {
 export default function RotationSurface({
 	viewer,
 	reportError,
+	getZoomLevel = () => 2,
 }: {
+	getZoomLevel?: () => number
 	reportError: (error: unknown) => void
 	viewer: ReactElement<ViewerProps>
 }) {
 	const [active, setActive] = useState(true)
 	const [zoomed, setZoomed] = useState(false)
 	const enabled = useRef(true)
+	const viewport = useRef<ElementRef<typeof NativeView>>(null)
+	const center = useRef({ x: 0, y: 0 })
+	const measureViewport = () =>
+		viewport.current?.measureInWindow((left, top, width, height) => {
+			center.current = { x: left + width / 2, y: top + height / 2 }
+		})
 	const transform = useRef(initialTransform())
 	const previous = useRef<readonly TouchPoint[]>([])
 	const rotation = useRef(new Animated.Value(0)).current
@@ -76,7 +84,36 @@ export default function RotationSurface({
 		apply()
 	}
 	useImperativeHandle(viewer.props.ref, () => ({
-		zoomTo: resetTransform,
+		zoomTo(point) {
+			const zoomScale = getZoomLevel()
+			previous.current = []
+			const zoom = (
+				left: number,
+				top: number,
+				width: number,
+				height: number,
+			) => {
+				if (!enabled.current) return
+				center.current = { x: left + width / 2, y: top + height / 2 }
+				transform.current = {
+					...transform.current,
+					scale: zoomScale,
+					x:
+						width > 0
+							? (width / 2 - Math.max(0, Math.min(width, point.x - left))) *
+								(zoomScale - 1)
+							: 0,
+					y:
+						height > 0
+							? (height / 2 - Math.max(0, Math.min(height, point.y - top))) *
+								(zoomScale - 1)
+							: 0,
+				}
+				apply()
+			}
+			if (viewport.current) viewport.current.measureInWindow(zoom)
+			else zoom(0, 0, 0, 0)
+		},
 		unzoom: resetTransform,
 	}))
 	const responder = useMemo(() => {
@@ -97,7 +134,10 @@ export default function RotationSurface({
 				capture(event) &&
 				(event.nativeEvent.touches.length >= 2 ||
 					Math.hypot(gesture.dx, gesture.dy) > 3),
-			onPanResponderGrant: remember,
+			onPanResponderGrant(event) {
+				measureViewport()
+				remember(event)
+			},
 			onPanResponderMove(event) {
 				if (!enabled.current) return
 				const touches = event.nativeEvent.touches
@@ -106,6 +146,7 @@ export default function RotationSurface({
 					previous.current,
 					touches,
 					maximumImageZoom,
+					center.current,
 				)
 				remember(event)
 				apply()
@@ -135,6 +176,8 @@ export default function RotationSurface({
 	if (!active || !supported) return viewer
 	return (
 		<NativeView
+			ref={viewport}
+			onLayout={measureViewport}
 			collapsable={false}
 			style={viewer.props.style}
 			{...responder.panHandlers}

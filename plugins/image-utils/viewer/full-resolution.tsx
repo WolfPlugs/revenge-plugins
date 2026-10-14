@@ -8,7 +8,11 @@ import {
 	useEffect,
 	useState,
 } from 'react'
-import { Image as NativeImage } from 'react-native'
+import {
+	Image as NativeImage,
+	View as NativeView,
+	StyleSheet,
+} from 'react-native'
 import { readImageSource } from '../utils/media'
 import type { ReactNode } from 'react'
 
@@ -114,6 +118,7 @@ export default function FullResolution({
 	const [requested, setRequested] = useState(false)
 	const [loaded, setLoaded] = useState(false)
 	const [failed, setFailed] = useState(false)
+	const [decoded, setDecoded] = useState(false)
 	const presenter = isValidElement<PresenterProps>(children)
 		? children
 		: undefined
@@ -150,32 +155,48 @@ export default function FullResolution({
 		if (requested && !failed && uri) return retainOriginalImage(uri)
 	}, [requested, failed, uri])
 	const renderMedia = presenter?.props.renderMedia
-	if (
-		!presenter ||
-		!source ||
-		!loaded ||
-		failed ||
-		typeof renderMedia !== 'function'
-	)
+	if (!presenter || !source || typeof renderMedia !== 'function')
 		return children
 	return cloneElement(presenter, {
-		source,
 		renderMedia: function (...args) {
 			const result = Reflect.apply(renderMedia, this, args)
 			if (
 				!isValidElement<{
 					resizeMethod?: string
+					source?: unknown
+					onLoadStart?: () => void
+					onLoad?: () => void
 					onError?: (error: unknown) => void
 				}>(result)
 			)
 				return result
-			return cloneElement(result, {
-				resizeMethod: 'none',
-				onError: error => {
-					setFailed(true)
-					reportError(error)
-				},
-			})
+			return (
+				<NativeView style={StyleSheet.absoluteFill}>
+					{(!decoded || failed) && (
+						<NativeView key="preview" style={StyleSheet.absoluteFill}>
+							{result}
+						</NativeView>
+					)}
+					{loaded && !failed && (
+						<NativeView
+							key="original"
+							pointerEvents={decoded ? 'auto' : 'none'}
+							style={[StyleSheet.absoluteFill, { opacity: decoded ? 1 : 0 }]}
+						>
+							{cloneElement(result, {
+								source,
+								resizeMethod: 'none',
+								onLoadStart: undefined,
+								onLoad: () => setDecoded(true),
+								onError: error => {
+									setFailed(true)
+									reportError(error)
+								},
+							})}
+						</NativeView>
+					)}
+				</NativeView>
+			)
 		},
 	})
 }

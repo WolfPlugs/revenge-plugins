@@ -7,15 +7,20 @@ import { patchAttachmentMenu } from './menus/attachment-menu'
 import { patchViewerLongPress } from './menus/viewer-menu'
 import SearchImageIcon from './search/search-icon'
 import { closeSheets, openSearch } from './search/sheets'
+import SettingsComponent from './settings'
+import { defaultSettings, doubleTapZoom } from './settings/config'
 import { readImageSource } from './utils/media'
 import { patchNativeResolution } from './viewer/full-resolution'
 import RotationSurface, { resetRotations } from './viewer/rotation-surface'
 import { patchZoomLimit } from './viewer/zoom'
 import type { PluginOptions } from '@revenge-mod/plugins/types'
 import type { ReactNode } from 'react'
+import type { Settings } from './settings/config'
 
 export default {
-	start({ cleanup, plugin }) {
+	jsonStorage: { load: true, default: defaultSettings },
+	SettingsComponent,
+	start({ cleanup, plugin, jsonStorage }) {
 		const reportError = (error: unknown) => plugin.reportError(error)
 		cleanup(resetRotations)
 		cleanup(closeSheets)
@@ -91,6 +96,7 @@ export default {
 								<RotationSurface
 									key={source.uri}
 									viewer={viewer}
+									getZoomLevel={() => doubleTapZoom(jsonStorage.cache)}
 									reportError={reportError}
 								/>
 							)
@@ -101,4 +107,4 @@ export default {
 			),
 		)
 	},
-} satisfies PluginOptions
+} satisfies PluginOptions<{ jsonStorage: Settings }>
