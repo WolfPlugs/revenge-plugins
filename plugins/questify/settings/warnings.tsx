@@ -64,13 +64,13 @@ function UsageDialog({
 			}
 			actions={
 				<View style={{ gap: 8 }}>
-					<Design.Button
+					<Design.AlertActionButton
 						text="Use display features only"
 						variant="primary"
 						disabled={saving}
 						onPress={() => apply(decline)}
 					/>
-					<Design.Button
+					<Design.AlertActionButton
 						text={`${step === 0 ? 'I understand the risks' : 'Confirm: allow auto-completion'}${remaining > 0 ? ` (${remaining}s)` : ''}`}
 						variant="destructive"
 						disabled={remaining > 0 || saving}
@@ -148,12 +148,12 @@ export function warnBeforeSetting(
 			}
 			actions={
 				<View style={{ gap: 8 }}>
-					<Design.Button
+					<Design.AlertActionButton
 						text="Keep disabled"
 						variant="secondary"
 						onPress={() => AlertActionCreators.dismissAlert(alertKey)}
 					/>
-					<Design.Button
+					<Design.AlertActionButton
 						text="Enable anyway"
 						variant="destructive"
 						onPress={() => {
