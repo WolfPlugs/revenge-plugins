@@ -1,0 +1,65 @@
+plugins/questify/completion/state.ts
+  s_baa78810c85154::t_bfbd16284af596 1-31
+plugins/questify/quests/filtering.ts
+  s_baa78810c85154::t_bfbd16284af596 1-54
+plugins/questify/quests/model.ts
+  s_baa78810c85154::t_bfbd16284af596 1-111
+plugins/questify/settings/warning-policy.ts
+  s_baa78810c85154::t_bfbd16284af596 1-40
+README.md
+  s_baa78810c85154::t_15841590c34c65 30,38
+  s_baa78810c85154::t_032e3df757a8dd 39
+plugins/questify/completion/requests.ts
+  s_baa78810c85154::t_bfbd16284af596 1-70
+plugins/questify/settings/warnings.tsx
+  s_baa78810c85154::t_bfbd16284af596 1-200
+plugins/questify/manifest.json
+  s_baa78810c85154::t_bfbd16284af596 8
+  s_baa78810c85154::t_432b9f202394e6 1-4,6-7,9-20
+  s_baa78810c85154::t_5b45c026d22ee3 5
+plugins/questify/patches/components.ts
+  s_baa78810c85154::t_bfbd16284af596 1-14
+plugins/questify/index.ts
+  s_baa78810c85154::t_525a7b7cdb178a 19-21
+  s_baa78810c85154::t_cc6a3488d99a85 17,23,67-69
+  s_baa78810c85154::t_a8fd81a567952e 1-4,25-66,70
+  s_baa78810c85154::t_bfbd16284af596 5-13
+  s_baa78810c85154::t_4f38326927a176 22
+  s_baa78810c85154::t_8b077716c801e8 24
+  s_baa78810c85154::t_432b9f202394e6 14-16,71-72
+  s_baa78810c85154::t_627df8c1ae73ec 18
+plugins/questify/completion/controller.ts
+  s_baa78810c85154::t_bfbd16284af596 1-292
+plugins/questify/completion/lifecycle.ts
+  s_baa78810c85154::t_bfbd16284af596 1-166
+plugins/questify/completion/service.ts
+  s_baa78810c85154::t_bfbd16284af596 1-109
+plugins/questify/quests/store.ts
+  s_baa78810c85154::t_bfbd16284af596 1-47
+plugins/questify/patches/lists.ts
+  s_baa78810c85154::t_bfbd16284af596 1-42
+plugins/questify/patches/menus.tsx
+  s_baa78810c85154::t_bfbd16284af596 1-152
+plugins/questify/patches/video-focus.ts
+  s_baa78810c85154::t_bfbd16284af596 1-40
+plugins/questify/settings/config.ts
+  s_baa78810c85154::t_bfbd16284af596 1-46
+plugins/questify/settings/index.tsx
+  s_baa78810c85154::t_bfbd16284af596 1-303
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "7c4933fa96cb0f3c7fc127ad0b2137ae128ea8d4",
+  "prompts": {},
+  "sessions": {
+    "s_baa78810c85154": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a13a7d-ed71-7be0-8c66-ba490b10f667",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "Wolfkid200444 <32025746+Wolfkid200444@users.noreply.github.com>"
+    }
+  }
+}
