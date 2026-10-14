@@ -1,0 +1,39 @@
+plugins/image-utils/settings/index.tsx
+  s_3e6e438992b345::t_cbfb5b42622008 3
+  s_3e6e438992b345::t_98a934bd178696 1-2,4-18,36-39
+  s_3e6e438992b345::t_6e93e3480f77e7 19-35
+plugins/image-utils/viewer/touch-transform.ts
+  s_3e6e438992b345::t_8442ae5bb8ebe7 24,63-70,77-78,82-83
+plugins/image-utils/viewer/rotation-surface.tsx
+  s_3e6e438992b345::t_d482126f46b39d 19,51,87,90-96,98-99,101-102,105-107,110-115,179
+  s_3e6e438992b345::t_98a934bd178696 42,44,88,100,103-104,108-109
+  s_3e6e438992b345::t_66ac334bb4d82d 89,116
+  s_3e6e438992b345::t_8442ae5bb8ebe7 52-56,97,137-140,149,180
+plugins/image-utils/index.tsx
+  s_3e6e438992b345::t_98a934bd178696 10-11,18,21-23,99,110
+plugins/image-utils/viewer/full-resolution.tsx
+  s_3e6e438992b345::t_99f7d3a7f94c63 158,175,180-197
+  s_3e6e438992b345::t_4dc06f96d95ea5 11-15,121,166-168,173-174,176-179,198-199
+plugins/image-utils/manifest.json
+  s_3e6e438992b345::t_e9eba29468c89c 8
+plugins/image-utils/settings/config.ts
+  s_3e6e438992b345::t_e9eba29468c89c 2
+  s_3e6e438992b345::t_4dc06f96d95ea5 4-10
+  s_3e6e438992b345::t_98a934bd178696 1,3,11-14
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0b47345664980267f54d74fc4cd6d76b860213df",
+  "prompts": {},
+  "sessions": {
+    "s_3e6e438992b345": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a132be-e703-7053-8597-400e7ad8e87e",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "Wolfkid200444 <32025746+Wolfkid200444@users.noreply.github.com>"
+    }
+  }
+}
