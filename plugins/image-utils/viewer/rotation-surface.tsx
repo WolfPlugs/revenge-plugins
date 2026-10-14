@@ -13,6 +13,7 @@ import {
 	PanResponder,
 	StyleSheet,
 } from 'react-native'
+import FullResolution from './full-resolution'
 import { initialTransform, moveImage } from './touch-transform'
 import { maximumImageZoom } from './zoom'
 import type { ReactElement, ReactNode, Ref } from 'react'
@@ -37,10 +38,13 @@ export function resetRotations() {
 
 export default function RotationSurface({
 	viewer,
+	reportError,
 }: {
+	reportError: (error: unknown) => void
 	viewer: ReactElement<ViewerProps>
 }) {
 	const [active, setActive] = useState(true)
+	const [zoomed, setZoomed] = useState(false)
 	const enabled = useRef(true)
 	const transform = useRef(initialTransform())
 	const previous = useRef<readonly TouchPoint[]>([])
@@ -62,6 +66,7 @@ export default function RotationSurface({
 		const zoomed = value.scale > 1
 		if (zoomed !== reportedZoom.current) {
 			reportedZoom.current = zoomed
+			setZoomed(zoomed)
 			props.current.onZoomChanged?.({ nativeEvent: { zoomScale: value.scale } })
 		}
 	}
@@ -157,7 +162,9 @@ export default function RotationSurface({
 						},
 					]}
 				>
-					{detector.props.children}
+					<FullResolution zoomed={zoomed} reportError={reportError}>
+						{detector.props.children}
+					</FullResolution>
 				</Animated.View>,
 			)}
 		</NativeView>

@@ -8,6 +8,7 @@ import { patchViewerLongPress } from './menus/viewer-menu'
 import SearchImageIcon from './search/search-icon'
 import { closeSheets, openSearch } from './search/sheets'
 import { readImageSource } from './utils/media'
+import { patchNativeResolution } from './viewer/full-resolution'
 import RotationSurface, { resetRotations } from './viewer/rotation-surface'
 import { patchZoomLimit } from './viewer/zoom'
 import type { PluginOptions } from '@revenge-mod/plugins/types'
@@ -21,6 +22,7 @@ export default {
 		patchAttachmentMenu(cleanup, reportError)
 		patchViewerLongPress(cleanup, reportError)
 		patchZoomLimit(cleanup)
+		patchNativeResolution(cleanup)
 		patchFavorites(cleanup)
 		cleanup(
 			getModules(
@@ -85,7 +87,13 @@ export default {
 							const source = readImageSource(props.source)
 							if (!source || !isValidElement<{ children?: ReactNode }>(viewer))
 								return viewer
-							return <RotationSurface key={source.uri} viewer={viewer} />
+							return (
+								<RotationSurface
+									key={source.uri}
+									viewer={viewer}
+									reportError={reportError}
+								/>
+							)
 						}),
 					)
 				},
