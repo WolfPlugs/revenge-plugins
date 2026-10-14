@@ -1,0 +1,19 @@
+index.json
+  s_baa78810c85154::t_a9f3fbdc9fd552 149
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "933e30ac7a9ea52f7d631d532f9f5d3603f8471d",
+  "prompts": {},
+  "sessions": {
+    "s_baa78810c85154": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a13a7d-ed71-7be0-8c66-ba490b10f667",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "Wolfkid200444 <32025746+Wolfkid200444@users.noreply.github.com>"
+    }
+  }
+}
