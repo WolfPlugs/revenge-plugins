@@ -62,7 +62,6 @@ export default function SettingsComponent({ api: { jsonStorage } }: Props) {
 					<TableRow
 						label="Auto-completion can lead to quest restrictions and account action"
 						subLabel="No completion setting guarantees safety or avoids detection."
-						onPress={() => showUsageWarning(jsonStorage)}
 					/>
 					<TableRow
 						label="Read Discord's policy"

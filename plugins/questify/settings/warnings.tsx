@@ -10,7 +10,6 @@ import {
 	completionAllowed,
 	displayOnlySettings,
 	PolicyUrl,
-	SettingWarnings,
 	UsageWarning,
 	WarningVersion,
 } from './warning-policy'
@@ -25,18 +24,15 @@ function UsageDialog({
 	accept: () => Promise<void>
 	decline: () => Promise<void>
 }) {
-	const [step, setStep] = useState(0)
 	const [remaining, setRemaining] = useState(10)
+	useEffect(() => {
+		const timer = setInterval(() => {
+			setRemaining(value => Math.max(0, value - 1))
+		}, 1000)
+		return () => clearInterval(timer)
+	}, [])
 	const [saving, setSaving] = useState(false)
 	const [error, setError] = useState('')
-	useEffect(() => {
-		if (remaining <= 0) return
-		const timer = setTimeout(
-			() => setRemaining(value => Math.max(0, value - 1)),
-			1000,
-		)
-		return () => clearTimeout(timer)
-	}, [remaining])
 	async function apply(action: () => Promise<void>) {
 		setSaving(true)
 		try {
@@ -64,32 +60,49 @@ function UsageDialog({
 			}
 			actions={
 				<View style={{ gap: 8 }}>
-					<Design.AlertActionButton
+					<Design.Button
 						text="Use display features only"
 						variant="primary"
 						disabled={saving}
 						onPress={() => apply(decline)}
 					/>
-					<Design.AlertActionButton
-						text={`${step === 0 ? 'I understand the risks' : 'Confirm: allow auto-completion'}${remaining > 0 ? ` (${remaining}s)` : ''}`}
+					<Design.Button
+						text={remaining > 0 ? `Accept risk (${remaining}s)` : 'Accept risk'}
 						variant="destructive"
-						disabled={remaining > 0 || saving}
-						onPress={() => {
-							if (step === 0) {
-								setStep(1)
-								setRemaining(5)
-							} else void apply(accept)
-						}}
+						disabled={saving || remaining > 0}
+						onPress={() => apply(accept)}
 					/>
 				</View>
 			}
 		/>
 	)
 }
-export function showUsageWarning(
+export async function showUsageWarning(
 	storage: JsonStorage<Settings>,
 	afterAccept?: () => Promise<void>,
 ) {
+	try {
+		await storage.get()
+	} catch {
+		ToastActionCreators.open('QUESTIFY_SETTINGS_ERROR', {
+			text: 'Could not load your saved choice. Please try again.',
+			variant: 'critical',
+		})
+		return
+	}
+	if (normalizeSettings(storage.cache).warningVersion > 0) {
+		void storage
+			.set({ autoCompletionAllowed: true })
+			.then(() => afterAccept?.())
+			.catch(() =>
+				ToastActionCreators.open('QUESTIFY_SETTINGS_ERROR', {
+					text: 'Could not save this setting. Please try again.',
+					variant: 'critical',
+				}),
+			)
+		return
+	}
+
 	AlertActionCreators.openAlert(
 		AlertKey,
 		<UsageDialog
@@ -111,65 +124,19 @@ export function showUsageWarning(
 }
 export function warnBeforeSetting(
 	storage: JsonStorage<Settings>,
-	key: string,
+	_key: string,
 	enable: boolean,
 	apply: () => Promise<void>,
 ) {
-	if (!enable) {
-		void apply().catch(() =>
-			ToastActionCreators.open('QUESTIFY_SETTINGS_ERROR', {
-				text: 'Could not save this setting. Please try again.',
-				variant: 'critical',
-			}),
-		)
-		return
-	}
-	if (!completionAllowed(normalizeSettings(storage.cache))) {
+	if (enable && !completionAllowed(normalizeSettings(storage.cache))) {
 		showUsageWarning(storage, apply)
 		return
 	}
-	const warning = SettingWarnings[key]
-	if (!warning) {
-		void apply().catch(() =>
-			ToastActionCreators.open('QUESTIFY_SETTINGS_ERROR', {
-				text: 'Could not save this setting. Please try again.',
-				variant: 'critical',
-			}),
-		)
-		return
-	}
-	const alertKey = `questify-setting-${key}`
-	AlertActionCreators.openAlert(
-		alertKey,
-		<Design.AlertModal
-			title="Questify setting warning"
-			content={
-				<Design.Text>{`${warning}\n\nAuto-completion violates Discord's policy and can result in quest restrictions or account action.`}</Design.Text>
-			}
-			actions={
-				<View style={{ gap: 8 }}>
-					<Design.AlertActionButton
-						text="Keep disabled"
-						variant="secondary"
-						onPress={() => AlertActionCreators.dismissAlert(alertKey)}
-					/>
-					<Design.AlertActionButton
-						text="Enable anyway"
-						variant="destructive"
-						onPress={() => {
-							void apply()
-								.then(() => AlertActionCreators.dismissAlert(alertKey))
-								.catch(() =>
-									ToastActionCreators.open('QUESTIFY_SETTINGS_ERROR', {
-										text: 'Could not save this setting. Please try again.',
-										variant: 'critical',
-									}),
-								)
-						}}
-					/>
-				</View>
-			}
-		/>,
+	void apply().catch(() =>
+		ToastActionCreators.open('QUESTIFY_SETTINGS_ERROR', {
+			text: 'Could not save this setting. Please try again.',
+			variant: 'critical',
+		}),
 	)
 }
 export function scheduleStartupWarning(
@@ -178,15 +145,25 @@ export function scheduleStartupWarning(
 ) {
 	let shown = false
 	let disposed = false
-	const show = () => {
+	let checking = false
+	const show = async () => {
+		if (disposed || shown || checking) return
+		checking = true
+		try {
+			await storage.get()
+		} catch {
+			checking = false
+			return
+		}
+		checking = false
 		if (
 			!disposed &&
 			!shown &&
 			AppState.currentState === 'active' &&
-			normalizeSettings(storage.cache).warningVersion < WarningVersion
+			normalizeSettings(storage.cache).warningVersion === 0
 		) {
 			shown = true
-			showUsageWarning(storage)
+			void showUsageWarning(storage)
 		}
 	}
 	const timer = setTimeout(show, 2000)

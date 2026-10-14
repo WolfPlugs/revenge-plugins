@@ -42,6 +42,17 @@ export function createCompletionController(adapter: CompletionAdapter) {
 		string,
 		{ account: string; state: CompletionState; abort: AbortController }
 	>()
+	const checkpoints = new Map<string, number>()
+	const progressKey = (account: string, id: string, task: Task) =>
+		JSON.stringify([account, id, task.name])
+	const resumeProgress = (account: string, id: string, task: Task) =>
+		Math.min(
+			task.target,
+			Math.max(
+				task.progress,
+				checkpoints.get(progressKey(account, id, task)) ?? 0,
+			),
+		)
 	const listeners = new Set<() => void>()
 	let enabled = false
 	type Entry = {
@@ -76,15 +87,17 @@ export function createCompletionController(adapter: CompletionAdapter) {
 			(task.name === 'WATCH_VIDEO' || task.name === 'WATCH_VIDEO_ON_MOBILE') &&
 			typeof quest.enrolledAt === 'number' &&
 			Number.isFinite(quest.enrolledAt)
+		const checkpointKey = progressKey(entry.account, id, task)
+		const initialProgress = resumeProgress(entry.account, id, task)
 		let progress = accelerated
 			? Math.min(
 					task.target,
 					Math.max(
-						task.progress,
+						initialProgress,
 						((adapter.wallNow?.() ?? Date.now()) - quest.enrolledAt!) / 1000,
 					),
 				)
-			: task.progress
+			: initialProgress
 		let lastProgress = progress
 		let stalled = 0
 		let firstPlayReport = true
@@ -124,6 +137,7 @@ export function createCompletionController(adapter: CompletionAdapter) {
 					progress + Math.min(7, Math.max(0, (adapter.now() - before) / 1000)),
 				)
 				await adapter.video(id, progress)
+				checkpoints.set(checkpointKey, progress)
 			} else {
 				if (!task.applicationId)
 					throw new Error('Quest application is unavailable.')
@@ -150,8 +164,9 @@ export function createCompletionController(adapter: CompletionAdapter) {
 				confirmed > lastProgress || (video && progress < task.target)
 					? 0
 					: stalled + 1
-			lastProgress = confirmed
-			if (!video) progress = confirmed
+			lastProgress = Math.max(lastProgress, confirmed)
+			progress = Math.max(progress, confirmed)
+			checkpoints.set(checkpointKey, progress)
 			if (stalled >= 4)
 				throw new Error(
 					'Discord did not confirm progress. Stopped; reopen Quests before retrying.',
@@ -261,7 +276,7 @@ export function createCompletionController(adapter: CompletionAdapter) {
 		queue(quest: Quest) {
 			if (adapter.allowed?.() === false)
 				throw new Error(
-					'Review the Questify usage warning in plugin settings before using auto-completion.',
+					'Enable Allow auto-completion in Questify settings before starting a quest.',
 				)
 			const account = adapter.account()
 			const task = completionTask(quest)
@@ -282,7 +297,11 @@ export function createCompletionController(adapter: CompletionAdapter) {
 				return
 			entries.set(quest.id, {
 				account,
-				state: { kind: 'queued', progress: task.progress, target: task.target },
+				state: {
+					kind: 'queued',
+					progress: resumeProgress(account, quest.id, task),
+					target: task.target,
+				},
 				abort: new AbortController(),
 			})
 			emit()

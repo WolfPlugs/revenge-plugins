@@ -14,15 +14,15 @@ import { isMemoQuestMenu } from './components'
 import type { DiscordModules } from '@revenge-mod/discord/types'
 import type { ComponentProps } from 'react'
 
-function CompletionIcon(
+function QuestMenuIcon(
 	props: ComponentProps<DiscordModules.Components.BaseIconImage>,
 ) {
 	const [icons] = lookupModule(
-		withProps<{ CheckmarkSmallIcon: DiscordModules.Components.BaseIconImage }>(
-			'CheckmarkSmallIcon',
+		withProps<{ QuestsIcon: DiscordModules.Components.BaseIconImage }>(
+			'QuestsIcon',
 		),
 	)
-	return icons ? createElement(icons.CheckmarkSmallIcon, props) : null
+	return icons ? createElement(icons.QuestsIcon, props) : null
 }
 
 function completionItem(props: unknown) {
@@ -43,7 +43,7 @@ function completionItem(props: unknown) {
 	return {
 		key: 'questify-complete',
 		label: active ? 'Stop auto-completion' : 'Auto complete quest',
-		IconComponent: CompletionIcon,
+		IconComponent: QuestMenuIcon,
 		action: () => {
 			try {
 				if (active) {
@@ -86,7 +86,7 @@ function drawerMenu(props: unknown, result: unknown) {
 		<Design.ActionSheetRow
 			key={item.key}
 			label={item.label}
-			icon={<Design.ActionSheetRow.Icon IconComponent={CompletionIcon} />}
+			icon={<Design.ActionSheetRow.Icon IconComponent={QuestMenuIcon} />}
 			onPress={() => {
 				ActionSheetActionCreators.hideActionSheet()
 				item.action()

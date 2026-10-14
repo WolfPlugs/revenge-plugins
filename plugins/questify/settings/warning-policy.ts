@@ -21,9 +21,7 @@ export const SettingWarnings: Record<string, string> = {
 export function completionAllowed(
 	settings: Pick<Settings, 'warningVersion' | 'autoCompletionAllowed'>,
 ): boolean {
-	return (
-		settings.warningVersion >= WarningVersion && settings.autoCompletionAllowed
-	)
+	return settings.warningVersion > 0 && settings.autoCompletionAllowed
 }
 export function displayOnlySettings(settings: Settings): Settings {
 	return {
