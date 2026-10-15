@@ -1,0 +1,39 @@
+plugins/gif-text/attachments.ts
+  s_3e6254c2ff5ce6::t_3bef46065301fa 6,8
+  s_3e6254c2ff5ce6::t_bfd3d279f72dc2 2,9-12,15,22,25-28,31,37,75,79-80,86,94-95,102-106,118-119,124,132-136,147-151,174
+  s_3e6254c2ff5ce6::t_286d08d20a482c 47-49,51-55,60-64,87-90
+  s_3e6254c2ff5ce6::t_4e7758e9149e82 5,7,29,32-35,84-85,92,117,125,139,156,165,167
+  s_3e6254c2ff5ce6::t_aa7dbb3aae884d 13-14,16-21,23-24,76-78,81-83,91,93,96-101,126-128,130-131
+  s_3e6254c2ff5ce6::t_8d3a2e45de2969 30,38-45,73,107-116,120-123,129,137-138,140-146,152-155,157-164,166,168-173
+  s_3e6254c2ff5ce6::t_8576eede212f21 1
+  s_3e6254c2ff5ce6::t_682e36581a3789 3-4,36,46,50,56-59,65-72,74
+plugins/gif-text/media-format.ts
+  s_3e6254c2ff5ce6::t_4e7758e9149e82 1-55
+plugins/gif-text/config.ts
+  s_3e6254c2ff5ce6::t_bfd3d279f72dc2 1-2
+plugins/gif-text/settings.tsx
+  s_3e6254c2ff5ce6::t_bfd3d279f72dc2 1-19,22-29
+  s_3e6254c2ff5ce6::t_4e7758e9149e82 20
+  s_3e6254c2ff5ce6::t_f61f0076be7f0f 21
+plugins/gif-text/media-urls.ts
+  s_3e6254c2ff5ce6::t_3bef46065301fa 1-42
+plugins/gif-text/index.ts
+  s_3e6254c2ff5ce6::t_aa7dbb3aae884d 1,5-8,35-42,76-87,93-114,141
+  s_3e6254c2ff5ce6::t_de951106440dba 88-92
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f040dad6e79fa5d4e6708d698358322645718300",
+  "prompts": {},
+  "sessions": {
+    "s_3e6254c2ff5ce6": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a14115-0cb3-7751-a345-d1f0e1e09546",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "Wolfkid200444 <32025746+Wolfkid200444@users.noreply.github.com>"
+    }
+  }
+}
