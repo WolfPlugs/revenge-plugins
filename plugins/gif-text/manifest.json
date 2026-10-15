@@ -5,7 +5,7 @@
 	"description": "Add GIF URLs to your message draft so you can send them with text.",
 	"author": "Wolfie <347096063569559553> (https://wolfies.org/ \"Website\") (https://github.com/Wolfkid200444 \"GitHub\")",
 	"icon": "GifIcon",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"dependencies": {
 		"revenge.api": {
 			"version": ">=1 <2"

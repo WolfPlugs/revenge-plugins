@@ -1,6 +1,11 @@
+import { ToastActionCreators } from '@revenge-mod/discord/actions'
 import { getModules } from '@revenge-mod/modules/finders'
 import { withName } from '@revenge-mod/modules/finders/filters'
 import { after, instead } from '@revenge-mod/patcher'
+import { attachGif, getChannelId } from './attachments'
+import { defaultSettings } from './config'
+import SettingsComponent from './settings'
+import type { Settings } from './config'
 
 type ChatInput = {
 	handleSelectGIF(gif: unknown): unknown
@@ -27,8 +32,14 @@ function isChatInput(value: unknown): value is ChatInput {
 	)
 }
 
-export default plugin({
-	start({ cleanup, plugin }) {
+export default plugin<{ jsonStorage: Settings }>({
+	jsonStorage: { load: true, default: defaultSettings },
+	start({ cleanup, plugin, jsonStorage }) {
+		const downloads = new Set<AbortController>()
+		cleanup(() => {
+			for (const controller of downloads) controller.abort()
+			downloads.clear()
+		})
 		const patched = new WeakSet<object>()
 		cleanup(
 			getModules(
@@ -62,6 +73,45 @@ export default plugin({
 										plugin.reportError(new Error('This GIF has no usable URL.'))
 										return
 									}
+									if (jsonStorage.cache?.attachGif === true) {
+										const channelId = getChannelId(refs)
+										if (!channelId) {
+											plugin.reportError(
+												new Error('Could not find the draft channel.'),
+											)
+											return
+										}
+										const controller = new AbortController()
+										downloads.add(controller)
+										const timeout = setTimeout(() => controller.abort(), 30_000)
+										void attachGif({
+											gif: {
+												url: gif.url,
+												gifSrc: 'gifSrc' in gif ? gif.gifSrc : undefined,
+												src: 'src' in gif ? gif.src : undefined,
+											},
+											channelId,
+											signal: controller.signal,
+											isCurrent: () => getChannelId(refs) === channelId,
+										})
+											.catch(error => {
+												if (!downloads.has(controller)) return
+												plugin.reportError(error)
+												ToastActionCreators.open('GIF_TEXT_ATTACHMENT_ERROR', {
+													text: controller.signal.aborted
+														? 'GIF download timed out. Try again.'
+														: error instanceof Error
+															? error.message
+															: 'Could not attach the GIF.',
+													variant: 'critical',
+												})
+											})
+											.finally(() => {
+												clearTimeout(timeout)
+												downloads.delete(controller)
+											})
+										return
+									}
 									const text = input.getText()
 									if (typeof text !== 'string') {
 										plugin.reportError(
@@ -88,4 +138,5 @@ export default plugin({
 		)
 		if (plugin.startedLate) plugin.requireReload()
 	},
+	SettingsComponent,
 })
