@@ -3,6 +3,30 @@
   "name": "WolfPlugs",
   "description": "Wolfie's plugins for Revenge Next.",
   "plugins": {
+    "wolfie.gif-text": {
+      "name": "Gif Text",
+      "description": "Add GIF URLs to your message draft so you can send them with text.",
+      "author": "Wolfie <347096063569559553> (https://wolfies.org/ \"Website\") (https://github.com/Wolfkid200444 \"GitHub\")",
+      "icon": "GifIcon",
+      "channels": {
+        "latest": "1.0.0"
+      },
+      "versions": {
+        "1.0.0": {
+          "url": "https://plugins.obamabot.me/revenge-plugins/pool/wolfie.gif-text@1.0.0.zip",
+          "sha256": "5d8104e63c5504ef10560245ba00cec990f040fdea877d505ce386b1ecade06e",
+          "size": 1139,
+          "dependencies": {
+            "revenge.api": {
+              "version": ">=1 <2"
+            },
+            "discord": {
+              "version": "*"
+            }
+          }
+        }
+      }
+    },
     "wolfie.global-badges": {
       "name": "Global Badges",
       "description": "Show profile badges from other Discord clients and BadgeVault.",
