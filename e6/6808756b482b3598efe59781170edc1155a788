@@ -1,0 +1,56 @@
+types/petpet-codecs.d.ts
+  s_b4adaba6287dab::t_b4cd836c363221 1-29
+README.md
+  s_b4adaba6287dab::t_ecfa7aaf113735 20-27
+  s_b4adaba6287dab::t_8d4e9895fb64ef 13-19
+plugins/petpet/manifest.json
+  s_b4adaba6287dab::t_a7f950e671aadd 1-14
+plugins/petpet/render.ts
+  s_b4adaba6287dab::t_c8313ee56d6296 1
+  s_b4adaba6287dab::t_cb0ebd187d1e2f 36-61,65,69-72,78-81,91-98,100-102,104-117
+  s_b4adaba6287dab::t_b4cd836c363221 3-35,62-64,66-68,73-77,82-90,99,103,118-121
+  s_b4adaba6287dab::t_f34ed43188890c 2
+bun.lock
+  s_b4adaba6287dab::t_e7d6fca6a82678 8,12,209-210,493-494,615-616
+plugins/petpet/attachments.ts
+  s_b4adaba6287dab::t_a7f950e671aadd 1-3,9-11,15-16,23-32,46-51
+  s_b4adaba6287dab::t_cb0ebd187d1e2f 4-8,12-14,17-22,33-45
+plugins/petpet/command.ts
+  s_b4adaba6287dab::t_cb0ebd187d1e2f 13-58,61-68
+  s_b4adaba6287dab::t_8b7448b581fd13 3,59-60
+  s_b4adaba6287dab::t_a7f950e671aadd 1-2,4-12,69
+plugins/petpet/index.ts
+  s_b4adaba6287dab::t_db4b30fc187ecb 2,16,40,93
+  s_b4adaba6287dab::t_906041981b920e 10-15
+  s_b4adaba6287dab::t_a7f950e671aadd 1,3-9,24,34-38,42-44,50-52,58-63,123-124
+  s_b4adaba6287dab::t_cb0ebd187d1e2f 17-23,25-33,39,41,45-49,53-57,64-92,94-122
+package.json
+  s_b4adaba6287dab::t_c8cb9936e5e57e 16,20
+  s_b4adaba6287dab::t_c6c86d54bd5311 19
+plugins/petpet/hand-frames.ts
+  s_b4adaba6287dab::t_cb0ebd187d1e2f 1-7
+scripts/check-petpet-bundle.mjs
+  s_b4adaba6287dab::t_556d9538e1a4e9 1-38,40-126,128
+  s_b4adaba6287dab::t_e57eb02a7d42d4 127
+  s_b4adaba6287dab::t_35feee76221132 39
+scripts/petpet.test.ts
+  s_b4adaba6287dab::t_8d4e9895fb64ef 1,3-15,20,23-40
+  s_b4adaba6287dab::t_73a47aeeb1dd6a 16-19,21-22
+  s_b4adaba6287dab::t_c8313ee56d6296 2
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e66808756b482b3598efe59781170edc1155a788",
+  "prompts": {},
+  "sessions": {
+    "s_b4adaba6287dab": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1420e-3e7a-7463-8278-6786c6cd983b",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "Wolfkid200444 <32025746+Wolfkid200444@users.noreply.github.com>"
+    }
+  }
+}
