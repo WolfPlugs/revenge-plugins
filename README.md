@@ -10,6 +10,21 @@ https://plugins.obamabot.me/revenge-plugins
 
 Install wolf plugins, then reload Revenge.
 
+## PetPet
+
+Use `/petpet user:@someone` to generate a 128px PetPet GIF on your device.
+The GIF is added to the current message's attachment tray. Add any text, then
+send it normally. Only the selected user's avatar is downloaded from Discord;
+generation does not use an external PetPet service.
+
+To verify PetPet locally:
+
+```sh
+bun test scripts/petpet.test.ts
+bun run build petpet
+bun scripts/check-petpet-bundle.mjs
+```
+
 ## Development
 
 ```sh

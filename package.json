@@ -13,9 +13,11 @@
 		"package": "bun run build && bun scripts/package.mjs"
 	},
 	"dependencies": {
+		"@pdf-lib/upng": "^1.0.1",
 		"@revenge-mod/plugin-cli": "git+https://github.com/revenge-mod/revenge-plugin-cli.git",
 		"@revenge-mod/types": "git+https://github.com/revenge-mod/revenge-types.git",
-		"fflate": "^0.8.3"
+		"fflate": "^0.8.3",
+		"gifenc": "^1.0.3"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.5.12",
