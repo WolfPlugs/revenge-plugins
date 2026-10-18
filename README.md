@@ -25,6 +25,25 @@ bun run build petpet
 bun scripts/check-petpet-bundle.mjs
 ```
 
+## AddAttachments
+
+Enable AddAttachments, edit a message, select images with Discord's attachment
+picker, then press send to save. Queued files upload with the edit and existing
+attachments stay on the message. Files leave the tray immediately when you save
+the edit so they cannot be sent again as a new message. If uploading or saving fails, the files return to the tray.
+
+The plugin uses the current channel's attachment tray, including any files queued
+before you started editing. Discord's limit of ten attachments per message applies.
+
+To verify locally:
+
+```sh
+bun test scripts/add-attachments.test.ts
+bun run build add-attachments
+```
+
+The upload flow still needs verification on a device running Revenge.
+
 ## Development
 
 ```sh
