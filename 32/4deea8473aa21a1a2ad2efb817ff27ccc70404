@@ -1,0 +1,40 @@
+plugins/add-attachments/index.ts
+  s_3b85ea616fc82b::t_11d3ae8cc47eb8 10-19,246
+  s_3b85ea616fc82b::t_7052920320d5ce 51-75,79,158,162,202-206,210,214
+  s_3b85ea616fc82b::t_42c7490c0d588e 90-127,129-157,159-161,163-179,181-183
+  s_3b85ea616fc82b::t_a869a5b35a409b 207-209,211-212
+  s_3b85ea616fc82b::t_ac958fe73c2e96 1-4,7-9,38-42,44,46-50,76-78,80-89,184-201,213,215-220,291-292,294-295
+  s_3b85ea616fc82b::t_67a2fb548ae170 5-6,20-37,43,45,221-245,247-290,293
+  s_3b85ea616fc82b::t_154f5c9aea9a39 128,180
+plugins/add-attachments/manifest.json
+  s_3b85ea616fc82b::t_64425032ae2a6e 8
+  s_3b85ea616fc82b::t_ac958fe73c2e96 1-7,9-20
+scripts/add-attachments.test.ts
+  s_3b85ea616fc82b::t_a869a5b35a409b 1-15,36-44,54-55,65,69,76-82,86-93,95-100,111,115-118,139-153,160-196,199-259,266,289-292,294-297
+  s_3b85ea616fc82b::t_11d3ae8cc47eb8 16-35,45-53,56-64,66-68,70-74,94,101-109,112,119-129,154,260-265,267-277,293
+  s_3b85ea616fc82b::t_42c7490c0d588e 75,110,113-114,155-159
+  s_3b85ea616fc82b::t_7052920320d5ce 83-85,197-198,278-288
+  s_3b85ea616fc82b::t_a54db5b288bfee 130-138
+plugins/add-attachments/upload.ts
+  s_3b85ea616fc82b::t_ac958fe73c2e96 1-11,13-38,40-47
+  s_3b85ea616fc82b::t_a869a5b35a409b 12,39
+README.md
+  s_3b85ea616fc82b::t_64425032ae2a6e 32-33
+  s_3b85ea616fc82b::t_a54db5b288bfee 28-31,34-46
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "324deea8473aa21a1a2ad2efb817ff27ccc70404",
+  "prompts": {},
+  "sessions": {
+    "s_3b85ea616fc82b": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a15034-fc3b-7101-97df-48ceda49ff79",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "Wolfkid200444 <32025746+Wolfkid200444@users.noreply.github.com>"
+    }
+  }
+}
