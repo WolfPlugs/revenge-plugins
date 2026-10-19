@@ -27,6 +27,31 @@
         }
       }
     },
+    "wolfie.bot-client": {
+      "name": "Bot Client",
+      "description": "Recommended to use a different client for this",
+      "author": "Wolfie <347096063569559553> (https://wolfies.org/ \"Website\") (https://github.com/Wolfkid200444 \"GitHub\")",
+      "icon": "BotIcon",
+      "channels": {
+        "latest": "1.0.0"
+      },
+      "versions": {
+        "1.0.0": {
+          "url": "https://plugins.obamabot.me/revenge-plugins/pool/wolfie.bot-client@1.0.0.zip",
+          "sha256": "972780b622d7b1cfd3cfcf56220c1080264779dcca1b53f959843812129e1c9d",
+          "size": 14679,
+          "dependencies": {
+            "revenge.api": {
+              "version": ">=1 <2"
+            },
+            "discord": {
+              "version": "*"
+            },
+            "revenge.settings": {}
+          }
+        }
+      }
+    },
     "wolfie.gif-text": {
       "name": "Gif Text",
       "description": "Add GIF URLs to your message draft so you can send them with text.",
