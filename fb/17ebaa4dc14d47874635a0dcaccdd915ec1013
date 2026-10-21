@@ -1,0 +1,34 @@
+plugins/global-badges/index.ts
+  s_cf448b5637a0b2::t_377d998ae85a7c 109-110
+  s_cf448b5637a0b2::t_e78defbfabd8e3 16,46,90-92,103,168-175
+plugins/global-badges/manifest.json
+  s_cf448b5637a0b2::t_e53629f3853c8f 14,17
+  s_cf448b5637a0b2::t_b1d7831a181fa8 11
+plugins/global-badges/badges.ts
+  s_cf448b5637a0b2::t_377d998ae85a7c 25,35-36,121,137,148-151,155-159,166-168,180-181
+  s_cf448b5637a0b2::t_6549b2ce5a82b9 26,162,164,170-172,174-176
+  s_cf448b5637a0b2::t_e78defbfabd8e3 139-144,160-161,163,165,169,173,177-179
+plugins/global-badges/settings.tsx
+  s_cf448b5637a0b2::t_377d998ae85a7c 36-40
+  s_cf448b5637a0b2::t_fcca60ba7b6922 35
+plugins/global-badges/viewer.ts
+  s_cf448b5637a0b2::t_e78defbfabd8e3 1-10,12-15,17-24,26-36,41-42,78-207,216-292
+  s_cf448b5637a0b2::t_6549b2ce5a82b9 11,16,25,37-40,43-65,70-77,208-215
+  s_cf448b5637a0b2::t_35d8c2ce795185 66-69
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "fb17ebaa4dc14d47874635a0dcaccdd915ec1013",
+  "prompts": {},
+  "sessions": {
+    "s_cf448b5637a0b2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1270b-3680-72c2-a886-7ffc51eeb374",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "Wolfkid200444 <32025746+Wolfkid200444@users.noreply.github.com>"
+    }
+  }
+}
