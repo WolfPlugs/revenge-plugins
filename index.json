@@ -95,7 +95,7 @@
       "author": "Wolfie <347096063569559553> (https://wolfies.org/ \"Website\") (https://github.com/Wolfkid200444 \"GitHub\")",
       "icon": "AwardIcon",
       "channels": {
-        "latest": "1.0.4"
+        "latest": "1.0.5"
       },
       "versions": {
         "1.0.2": {
@@ -134,6 +134,19 @@
             },
             "discord": {
               "version": "*"
+            }
+          }
+        },
+        "1.0.5": {
+          "url": "https://plugins.obamabot.me/revenge-plugins/pool/wolfie.global-badges@1.0.5.zip",
+          "sha256": "c5bf0c0f5ff4337367c4274983195647982858aa01912be14663dd7347136769",
+          "size": 4452,
+          "dependencies": {
+            "revenge.api": {
+              "version": ">=1.2.1 <2"
+            },
+            "discord": {
+              "version": ">=351.1"
             }
           }
         }
@@ -208,7 +221,7 @@
       "author": "Wolfie <347096063569559553> (https://wolfies.org/ \"Website\") (https://github.com/Wolfkid200444 \"GitHub\")",
       "icon": "SpoilerIcon",
       "channels": {
-        "latest": "1.0.0"
+        "latest": "1.0.1"
       },
       "versions": {
         "1.0.0": {
@@ -221,6 +234,19 @@
             },
             "discord": {
               "version": "*"
+            }
+          }
+        },
+        "1.0.1": {
+          "url": "https://plugins.obamabot.me/revenge-plugins/pool/wolfie.nsfw-blur@1.0.1.zip",
+          "sha256": "281098bb9bc21d29547a2c7544e7166291baa02dfb77c3f9d0dd43451faf4d4a",
+          "size": 22165,
+          "dependencies": {
+            "revenge.api": {
+              "version": ">=1.2.1 <2"
+            },
+            "discord": {
+              "version": ">=351.1"
             }
           }
         }
