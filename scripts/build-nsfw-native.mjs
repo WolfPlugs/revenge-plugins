@@ -8,6 +8,8 @@ const required = [
 	'REVENGE_API_JAR',
 	'XPOSED_API_JAR',
 	'D8',
+	'DEXKIT_JAR',
+	'COROUTINES_JAR',
 ]
 for (const name of required) {
 	if (!process.env[name])
@@ -19,6 +21,8 @@ const dependencies = [
 	process.env.ANDROID_JAR,
 	process.env.REVENGE_API_JAR,
 	process.env.XPOSED_API_JAR,
+	process.env.DEXKIT_JAR,
+	process.env.COROUTINES_JAR,
 ]
 function run(command, args) {
 	const result = spawnSync(command, args, { stdio: 'inherit' })
@@ -43,6 +47,10 @@ run(process.env.D8, [
 	process.env.REVENGE_API_JAR,
 	'--classpath',
 	process.env.XPOSED_API_JAR,
+	'--classpath',
+	process.env.DEXKIT_JAR,
+	'--classpath',
+	process.env.COROUTINES_JAR,
 	'--classpath',
 	join(process.env.KOTLIN_HOME, 'lib/kotlin-stdlib.jar'),
 	'--output',
