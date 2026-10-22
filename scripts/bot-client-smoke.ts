@@ -74,6 +74,7 @@ const react = {
 	},
 }
 const revenge = {
+	utils: { discord: { lookupGeneratedIconComponent: name => name } },
 	assets: { getAssetIdByName: () => 1 },
 	get react() {
 		assert(ready, 'React accessed before start')
@@ -379,6 +380,7 @@ ready = true
 await options.start(api)
 assert.equal(settingsRows.at(-1), 'WolfieBotClient')
 const item = settingsItems.get('WolfieBotClient')
+assert.equal(item.IconComponent, 'RobotIcon')
 assert.equal(item.useTitle(), 'Bot Client')
 const page = item.screen.getComponent()()
 const Screen = page.type

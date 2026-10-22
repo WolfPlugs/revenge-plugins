@@ -4,6 +4,7 @@ import {
 	refreshSettings,
 	registerSettingsItem,
 } from '@revenge-mod/discord/modules/settings'
+import { lookupGeneratedIconComponent } from '@revenge-mod/utils/discord'
 import { createElement } from 'react'
 import { installEmbedBuilder } from './composer'
 import AccountScreen, { closeAccountAlerts } from './screen'
@@ -32,6 +33,7 @@ export default plugin<{ jsonStorage: AccountStorage }>({
 						parent: null,
 						type: 'route',
 						useTitle: () => 'Bot Client',
+						IconComponent: lookupGeneratedIconComponent('RobotIcon'),
 						useDescription: () => 'Manage and switch accounts',
 						screen: {
 							route: 'WolfieBotClient',
