@@ -1,0 +1,23 @@
+plugins/bot-client/manifest.json
+  s_84473058e594f1::t_77671c5431c393 8
+scripts/bot-client-smoke.ts
+  s_84473058e594f1::t_77671c5431c393 77,383
+plugins/bot-client/index.ts
+  s_84473058e594f1::t_11801f3bdc9919 7,36
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c049a6bb601774ea24d4cef0987928fa1e00d32f",
+  "prompts": {},
+  "sessions": {
+    "s_84473058e594f1": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1503a-1bcf-7b41-87f2-73ee43a83a00",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "Wolfkid200444 <32025746+Wolfkid200444@users.noreply.github.com>"
+    }
+  }
+}
