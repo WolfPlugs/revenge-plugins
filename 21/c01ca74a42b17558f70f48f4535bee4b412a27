@@ -1,0 +1,19 @@
+plugins/bot-client/manifest.json
+  s_84473058e594f1::t_f1b04d359a26af 8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "21c01ca74a42b17558f70f48f4535bee4b412a27",
+  "prompts": {},
+  "sessions": {
+    "s_84473058e594f1": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1503a-1bcf-7b41-87f2-73ee43a83a00",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "Wolfkid200444 <32025746+Wolfkid200444@users.noreply.github.com>"
+    }
+  }
+}
