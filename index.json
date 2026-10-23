@@ -229,6 +229,30 @@
         }
       }
     },
+    "wolfie.media-utils": {
+      "name": "MediaUtils",
+      "description": "Rotate and zoom media, search images, crop images, and trim and crop video attachments.",
+      "author": "Wolfie <347096063569559553> (https://wolfies.org/ \"Website\") (https://github.com/Wolfkid200444 \"GitHub\")",
+      "icon": "ImageIcon",
+      "channels": {
+        "latest": "1.0.4"
+      },
+      "versions": {
+        "1.0.4": {
+          "url": "https://plugins.obamabot.me/revenge-plugins/pool/wolfie.media-utils@1.0.4.zip",
+          "sha256": "6522aa6eeb0030cc103bb36292b8789042e4f3ebea97f788982e844f4d058177",
+          "size": 54947,
+          "dependencies": {
+            "revenge.api": {
+              "version": ">=1.2.1 <2"
+            },
+            "discord": {
+              "version": ">=351.1"
+            }
+          }
+        }
+      }
+    },
     "wolfie.nsfw-blur": {
       "name": "NSFW Blur",
       "description": "Blur images and videos in NSFW channels until you tap to reveal them.",
