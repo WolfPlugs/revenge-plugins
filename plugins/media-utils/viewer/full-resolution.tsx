@@ -109,10 +109,12 @@ type PresenterProps = {
 export default function FullResolution({
 	children,
 	zoomed,
+	enabled = true,
 	reportError,
 }: {
 	children: ReactNode
 	zoomed: boolean
+	enabled?: boolean
 	reportError: (error: unknown) => void
 }) {
 	const [requested, setRequested] = useState(false)
@@ -125,10 +127,10 @@ export default function FullResolution({
 	const source = originalImageSource(presenter?.props.source)
 	const uri = source?.uri
 	useEffect(() => {
-		if (zoomed) setRequested(true)
-	}, [zoomed])
+		if (enabled && zoomed) setRequested(true)
+	}, [zoomed, enabled])
 	useEffect(() => {
-		if (!requested || !uri) return
+		if (!enabled || !requested || !uri) return
 		let cancelled = false
 		NativeImage.prefetch(uri)
 			.then(success => {
@@ -137,7 +139,7 @@ export default function FullResolution({
 				else {
 					setFailed(true)
 					reportError(
-						new Error('ImageUtils: original image could not be loaded.'),
+						new Error('MediaUtils: original image could not be loaded.'),
 					)
 				}
 			})
@@ -150,12 +152,12 @@ export default function FullResolution({
 		return () => {
 			cancelled = true
 		}
-	}, [requested, uri, reportError])
+	}, [enabled, requested, uri, reportError])
 	useEffect(() => {
-		if (requested && !failed && uri) return retainOriginalImage(uri)
-	}, [requested, failed, uri])
+		if (enabled && requested && !failed && uri) return retainOriginalImage(uri)
+	}, [enabled, requested, failed, uri])
 	const renderMedia = presenter?.props.renderMedia
-	if (!presenter || !source || typeof renderMedia !== 'function')
+	if (!enabled || !presenter || !source || typeof renderMedia !== 'function')
 		return children
 	return cloneElement(presenter, {
 		renderMedia: function (...args) {

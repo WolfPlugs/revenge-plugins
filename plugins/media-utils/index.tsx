@@ -2,14 +2,19 @@ import { getModules } from '@revenge-mod/modules/finders'
 import { withProps } from '@revenge-mod/modules/finders/filters'
 import { instead } from '@revenge-mod/patcher'
 import { isValidElement } from 'react'
+import { patchImageEditor } from './editor'
 import { patchFavorites } from './favorites/patches'
 import { patchAttachmentMenu } from './menus/attachment-menu'
+import MediaOptionsIcon from './menus/options-icon'
 import { patchViewerLongPress } from './menus/viewer-menu'
 import SearchImageIcon from './search/search-icon'
 import { closeSheets, openSearch } from './search/sheets'
-import SettingsComponent from './settings'
-import { defaultSettings, doubleTapZoom } from './settings/config'
-import { readImageSource } from './utils/media'
+import SettingsComponent, {
+	closeMediaOptions,
+	openMediaOptions,
+} from './settings'
+import { defaultSettings, readSettings } from './settings/config'
+import { readMediaSource } from './utils/media'
 import { patchNativeResolution } from './viewer/full-resolution'
 import RotationSurface, { resetRotations } from './viewer/rotation-surface'
 import { patchZoomLimit } from './viewer/zoom'
@@ -24,11 +29,13 @@ export default {
 		const reportError = (error: unknown) => plugin.reportError(error)
 		cleanup(resetRotations)
 		cleanup(closeSheets)
-		patchAttachmentMenu(cleanup, reportError)
-		patchViewerLongPress(cleanup, reportError)
-		patchZoomLimit(cleanup)
+		cleanup(closeMediaOptions)
+		patchImageEditor(cleanup, reportError)
+		patchAttachmentMenu(cleanup, reportError, jsonStorage)
+		patchViewerLongPress(cleanup, reportError, jsonStorage)
+		patchZoomLimit(cleanup, () => readSettings(jsonStorage.cache).zoomEnabled)
 		patchNativeResolution(cleanup)
-		patchFavorites(cleanup)
+		patchFavorites(cleanup, () => readSettings(jsonStorage.cache).favoriteMedia)
 		cleanup(
 			getModules(
 				withProps<{
@@ -46,14 +53,23 @@ export default {
 								!('source' in props)
 							)
 								return actions
-							const source = readImageSource(props.source)
+							const source = readMediaSource(props.source)
 							if (!source) return actions
 							return [
 								...actions,
+								...(source.kind === 'image'
+									? [
+											{
+												label: 'Search image',
+												IconComponent: SearchImageIcon,
+												action: () => openSearch(source.searchUri, reportError),
+											},
+										]
+									: []),
 								{
-									label: 'Search image',
-									IconComponent: SearchImageIcon,
-									action: () => openSearch(source.searchUri, reportError),
+									label: 'Media options',
+									IconComponent: MediaOptionsIcon,
+									action: () => openMediaOptions(jsonStorage),
 								},
 							]
 						}),
@@ -75,7 +91,7 @@ export default {
 						typeof item.type !== 'function'
 					) {
 						reportError(
-							new Error('ImageUtils: unsupported MediaViewerItem export.'),
+							new Error('MediaUtils: unsupported MediaViewerItem export.'),
 						)
 						return
 					}
@@ -89,14 +105,15 @@ export default {
 								!('source' in props)
 							)
 								return viewer
-							const source = readImageSource(props.source)
+							const source = readMediaSource(props.source)
 							if (!source || !isValidElement<{ children?: ReactNode }>(viewer))
 								return viewer
 							return (
 								<RotationSurface
 									key={source.uri}
 									viewer={viewer}
-									getZoomLevel={() => doubleTapZoom(jsonStorage.cache)}
+									kind={source.kind}
+									store={jsonStorage}
 									reportError={reportError}
 								/>
 							)

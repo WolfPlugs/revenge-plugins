@@ -1,6 +1,11 @@
-export type ImageSource = { uri: string; searchUri: string }
+export type MediaSource = {
+	uri: string
+	searchUri: string
+	kind: 'image' | 'video'
+}
+export type ImageSource = MediaSource
 
-export function readImageSource(value: unknown): ImageSource | undefined {
+export function readMediaSource(value: unknown): MediaSource | undefined {
 	if (Array.isArray(value)) value = value[0]
 	if (
 		typeof value !== 'object' ||
@@ -9,8 +14,13 @@ export function readImageSource(value: unknown): ImageSource | undefined {
 		typeof value.uri !== 'string'
 	)
 		return
-	if ('videoURI' in value && value.videoURI) return
+	const video =
+		('videoURI' in value && Boolean(value.videoURI)) ||
+		('contentType' in value &&
+			typeof value.contentType === 'string' &&
+			value.contentType.startsWith('video/'))
 	if (
+		!video &&
 		'contentType' in value &&
 		typeof value.contentType === 'string' &&
 		value.contentType.length > 0 &&
@@ -24,7 +34,12 @@ export function readImageSource(value: unknown): ImageSource | undefined {
 		/^https?:\/\//i.test(value.sourceURI)
 			? value.sourceURI
 			: value.uri
-	return { uri: value.uri, searchUri }
+	return { uri: value.uri, searchUri, kind: video ? 'video' : 'image' }
+}
+
+export function readImageSource(value: unknown): ImageSource | undefined {
+	const source = readMediaSource(value)
+	return source?.kind === 'image' ? source : undefined
 }
 
 export const searchEngines = {

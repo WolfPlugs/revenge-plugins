@@ -13,11 +13,13 @@ import {
 	PanResponder,
 	StyleSheet,
 } from 'react-native'
+import { readSettings } from '../settings/config'
 import FullResolution from './full-resolution'
 import { initialTransform, moveImage } from './touch-transform'
 import { maximumImageZoom } from './zoom'
 import type { ElementRef, ReactElement, ReactNode, Ref } from 'react'
 import type { GestureResponderEvent, StyleProp, ViewStyle } from 'react-native'
+import type { SettingsStore } from '../settings/config'
 import type { TouchPoint } from './touch-transform'
 
 type ZoomHandle = {
@@ -39,12 +41,17 @@ export function resetRotations() {
 export default function RotationSurface({
 	viewer,
 	reportError,
-	getZoomLevel = () => 2,
+	store,
+	kind,
 }: {
-	getZoomLevel?: () => number
+	store: SettingsStore
+	kind: 'image' | 'video'
 	reportError: (error: unknown) => void
 	viewer: ReactElement<ViewerProps>
 }) {
+	const settings = readSettings(store.use())
+	const preferences = useRef(settings)
+	preferences.current = settings
 	const [active, setActive] = useState(true)
 	const [zoomed, setZoomed] = useState(false)
 	const enabled = useRef(true)
@@ -85,7 +92,8 @@ export default function RotationSurface({
 	}
 	useImperativeHandle(viewer.props.ref, () => ({
 		zoomTo(point) {
-			const zoomScale = getZoomLevel()
+			if (!preferences.current.zoomEnabled) return
+			const zoomScale = preferences.current.doubleTapZoom
 			previous.current = []
 			const zoom = (
 				left: number,
@@ -117,8 +125,14 @@ export default function RotationSurface({
 		unzoom: resetTransform,
 	}))
 	const responder = useMemo(() => {
+		const canRotate = () =>
+			kind === 'video'
+				? preferences.current.rotateVideos
+				: preferences.current.rotateImages
+		const canInteract = () => canRotate() || preferences.current.zoomEnabled
 		const capture = (event: GestureResponderEvent) =>
 			enabled.current &&
+			canInteract() &&
 			(event.nativeEvent.touches.length >= 2 || transform.current.scale > 1)
 		const remember = (event: GestureResponderEvent) => {
 			previous.current = event.nativeEvent.touches.map(touch => ({
@@ -129,7 +143,9 @@ export default function RotationSurface({
 		}
 		return PanResponder.create({
 			onStartShouldSetPanResponderCapture: event =>
-				enabled.current && event.nativeEvent.touches.length >= 2,
+				enabled.current &&
+				canInteract() &&
+				event.nativeEvent.touches.length >= 2,
 			onMoveShouldSetPanResponderCapture: (event, gesture) =>
 				capture(event) &&
 				(event.nativeEvent.touches.length >= 2 ||
@@ -141,13 +157,20 @@ export default function RotationSurface({
 			onPanResponderMove(event) {
 				if (!enabled.current) return
 				const touches = event.nativeEvent.touches
-				transform.current = moveImage(
+				const next = moveImage(
 					transform.current,
 					previous.current,
 					touches,
 					maximumImageZoom,
 					center.current,
 				)
+				transform.current = {
+					...next,
+					rotation: canRotate() ? next.rotation : 0,
+					scale: preferences.current.zoomEnabled ? next.scale : 1,
+					x: preferences.current.zoomEnabled ? next.x : 0,
+					y: preferences.current.zoomEnabled ? next.y : 0,
+				}
 				remember(event)
 				apply()
 			},
@@ -173,6 +196,16 @@ export default function RotationSurface({
 			resets.delete(reset)
 		}
 	}, [])
+	useEffect(() => {
+		if (!(kind === 'video' ? settings.rotateVideos : settings.rotateImages))
+			transform.current.rotation = 0
+		if (!settings.zoomEnabled) {
+			transform.current.scale = 1
+			transform.current.x = 0
+			transform.current.y = 0
+		}
+		apply()
+	}, [kind, settings.rotateImages, settings.rotateVideos, settings.zoomEnabled])
 	if (!active || !supported) return viewer
 	return (
 		<NativeView
@@ -205,7 +238,11 @@ export default function RotationSurface({
 						},
 					]}
 				>
-					<FullResolution zoomed={zoomed} reportError={reportError}>
+					<FullResolution
+						zoomed={zoomed && settings.fullResolution && kind === 'image'}
+						enabled={settings.fullResolution && kind === 'image'}
+						reportError={reportError}
+					>
 						{detector.props.children}
 					</FullResolution>
 				</Animated.View>,

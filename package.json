@@ -3,8 +3,8 @@
 	"private": true,
 	"type": "module",
 	"scripts": {
-		"build": "revenge-plugin build",
-		"build:dev": "revenge-plugin build --dev",
+		"build": "bun scripts/build-media-utils-canvas.ts && revenge-plugin build",
+		"build:dev": "bun scripts/build-media-utils-canvas.ts && revenge-plugin build --dev",
 		"generate-index": "revenge-plugin generate-index",
 		"plan-releases": "revenge-plugin plan-releases",
 		"serve": "revenge-plugin serve",

@@ -61,7 +61,10 @@ export function normalizeFavorite(data: unknown) {
 	return data
 }
 
-export function patchFavorites(cleanup: (callback: () => void) => void) {
+export function patchFavorites(
+	cleanup: (callback: () => void) => void,
+	enabled: () => boolean,
+) {
 	const patchedButtons = new WeakSet<object>()
 	const thumbnails = new WeakMap<unknown[], unknown[]>()
 	cleanup(
@@ -79,6 +82,7 @@ export function patchFavorites(cleanup: (callback: () => void) => void) {
 				patchedButtons.add(button)
 				cleanup(
 					instead(button, 'type', function (args, original) {
+						if (!enabled()) return Reflect.apply(original, this, args)
 						const props = args[0]
 						if (
 							typeof props !== 'object' ||
@@ -104,6 +108,7 @@ export function patchFavorites(cleanup: (callback: () => void) => void) {
 			module => {
 				cleanup(
 					instead(module, 'addFavoriteGIF', function (args, original) {
+						if (!enabled()) return Reflect.apply(original, this, args)
 						return Reflect.apply(original, this, [
 							normalizeFavorite(args[0]),
 							...args.slice(1),
@@ -123,6 +128,7 @@ export function patchFavorites(cleanup: (callback: () => void) => void) {
 				cleanup(
 					instead(module, 'useFavoriteGIFsMobile', function (args, original) {
 						const result = Reflect.apply(original, this, args)
+						if (!enabled()) return result
 						if (
 							typeof result !== 'object' ||
 							result === null ||

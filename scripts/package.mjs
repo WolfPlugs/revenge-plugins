@@ -22,11 +22,15 @@ for (const entry of readdirSync('plugins', { withFileTypes: true })) {
 		)
 	}
 	if (manifest.dist.android) {
-		if (manifest.id !== 'wolfie.nsfw-blur')
+		if (!['wolfie.nsfw-blur', 'wolfie.media-utils'].includes(manifest.id))
 			throw new Error(`No native builder for ${manifest.id}`)
 		const result = spawnSync(
 			process.execPath,
-			['scripts/build-nsfw-native.mjs'],
+			[
+				manifest.id === 'wolfie.media-utils'
+					? 'scripts/build-media-utils-native.mjs'
+					: 'scripts/build-nsfw-native.mjs',
+			],
 			{ stdio: 'inherit' },
 		)
 		if (result.error) throw result.error

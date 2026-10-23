@@ -5,12 +5,15 @@ import { instead } from '@revenge-mod/patcher'
 import { Children, cloneElement, isValidElement } from 'react'
 import SearchImageIcon from '../search/search-icon'
 import { openSearch } from '../search/sheets'
-import { readImageSource } from '../utils/media'
+import { readMediaSource } from '../utils/media'
+import { MediaOptionsRow } from './viewer-menu'
 import type { ReactNode } from 'react'
+import type { SettingsStore } from '../settings/config'
 
 export function patchAttachmentMenu(
 	cleanup: (callback: () => void) => void,
 	reportError: (error: unknown) => void,
+	store: SettingsStore,
 ) {
 	cleanup(
 		getModules(
@@ -38,11 +41,12 @@ export function patchAttachmentMenu(
 						const group = groups[0]
 						if (!isValidElement<{ children?: ReactNode }>(group)) return result
 						const rows = Children.toArray(group.props.children)
-						const searchRows = sources.map((image, index) => (
+						const images = sources.filter(source => source.kind === 'image')
+						const searchRows = images.map((image, index) => (
 							<Design.ActionSheetRow
-								key={`image-utils-search-${image.uri}`}
+								key={`media-utils-search-${image.uri}`}
 								label={
-									sources.length === 1
+									images.length === 1
 										? 'Search image'
 										: `Search image ${index + 1}`
 								}
@@ -57,6 +61,7 @@ export function patchAttachmentMenu(
 							{},
 							...rows.slice(0, 2),
 							...searchRows,
+							<MediaOptionsRow key="media-utils-options" store={store} />,
 							...rows.slice(2),
 						)
 						return cloneElement(result, {}, cloneElement(sheet, {}, ...groups))
@@ -74,11 +79,14 @@ function attachmentSources(props: object) {
 		if (
 			typeof media !== 'object' ||
 			!('mediaType' in media) ||
-			media.mediaType !== 'image' ||
+			(media.mediaType !== 'image' && media.mediaType !== 'video') ||
 			!('mediaUrl' in media)
 		)
 			return []
-		const source = readImageSource({ uri: media.mediaUrl })
+		const source = readMediaSource({
+			uri: media.mediaUrl,
+			contentType: media.mediaType === 'video' ? 'video/mp4' : 'image/png',
+		})
 		return source ? [source] : []
 	}
 	if (
@@ -98,9 +106,12 @@ function attachmentSources(props: object) {
 			return []
 		const contentType =
 			'content_type' in attachment ? attachment.content_type : undefined
-		if (typeof contentType !== 'string' || !contentType.startsWith('image/'))
+		if (
+			typeof contentType !== 'string' ||
+			(!contentType.startsWith('image/') && !contentType.startsWith('video/'))
+		)
 			return []
-		const source = readImageSource({ uri: attachment.url, contentType })
+		const source = readMediaSource({ uri: attachment.url, contentType })
 		return source ? [source] : []
 	})
 }

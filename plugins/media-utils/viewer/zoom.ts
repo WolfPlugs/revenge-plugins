@@ -4,7 +4,10 @@ import { instead } from '@revenge-mod/patcher'
 
 export const maximumImageZoom = 100
 
-export function patchZoomLimit(cleanup: (callback: () => void) => void) {
+export function patchZoomLimit(
+	cleanup: (callback: () => void) => void,
+	enabled: () => boolean,
+) {
 	cleanup(
 		getModules(
 			withName<(...args: unknown[]) => unknown>('getMediaViewerStateForScreen'),
@@ -14,7 +17,8 @@ export function patchZoomLimit(cleanup: (callback: () => void) => void) {
 				cleanup(
 					instead(module, 'default', function (args, original) {
 						const result = Reflect.apply(original, this, args)
-						if (typeof result !== 'object' || result === null) return result
+						if (!enabled() || typeof result !== 'object' || result === null)
+							return result
 						return { ...result, maximumZoomScale: maximumImageZoom }
 					}),
 				)

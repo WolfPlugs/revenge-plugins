@@ -5,12 +5,25 @@ import { instead } from '@revenge-mod/patcher'
 import { Children, cloneElement, isValidElement } from 'react'
 import SearchImageIcon from '../search/search-icon'
 import { openSearch } from '../search/sheets'
-import { readImageSource } from '../utils/media'
+import { openMediaOptions } from '../settings'
+import { readMediaSource } from '../utils/media'
+import MediaOptionsIcon from './options-icon'
 import type { ReactNode } from 'react'
+import type { SettingsStore } from '../settings/config'
 
+export function MediaOptionsRow({ store }: { store: SettingsStore }) {
+	return (
+		<Design.ActionSheetRow
+			label="Media options"
+			icon={<Design.ActionSheetRow.Icon IconComponent={MediaOptionsIcon} />}
+			onPress={() => openMediaOptions(store)}
+		/>
+	)
+}
 export function patchViewerLongPress(
 	cleanup: (callback: () => void) => void,
 	reportError: (error: unknown) => void,
+	store: SettingsStore,
 ) {
 	cleanup(
 		getModules(
@@ -28,38 +41,36 @@ export function patchViewerLongPress(
 							!('source' in props)
 						)
 							return result
-						const image = readImageSource(props.source)
-						if (!image || !isValidElement<{ children?: ReactNode }>(result))
+						const media = readMediaSource(props.source)
+						if (!media || !isValidElement<{ children?: ReactNode }>(result))
 							return result
 						const group = result.props.children
 						if (!isValidElement<{ children?: ReactNode }>(group)) return result
-						if (
-							Children.toArray(group.props.children).some(
+						const rows = Children.toArray(group.props.children)
+						const hasLabel = (label: string) =>
+							rows.some(
 								row =>
 									isValidElement<{ label?: string }>(row) &&
-									row.props.label === 'Search image',
+									row.props.label === label,
 							)
-						)
-							return result
-						return cloneElement(
-							result,
-							{},
-							cloneElement(
-								group,
-								{},
-								group.props.children,
+						if (media.kind === 'image' && !hasLabel('Search image'))
+							rows.push(
 								<Design.ActionSheetRow
-									key="image-utils-search"
+									key="media-utils-search"
 									label="Search image"
 									icon={
 										<Design.ActionSheetRow.Icon
 											IconComponent={SearchImageIcon}
 										/>
 									}
-									onPress={() => openSearch(image.searchUri, reportError)}
+									onPress={() => openSearch(media.searchUri, reportError)}
 								/>,
-							),
-						)
+							)
+						if (!hasLabel('Media options'))
+							rows.push(
+								<MediaOptionsRow key="media-utils-options" store={store} />,
+							)
+						return cloneElement(result, {}, cloneElement(group, {}, ...rows))
 					}),
 				)
 			},

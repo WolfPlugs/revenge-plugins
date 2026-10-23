@@ -24,7 +24,7 @@ const providers = [
 	{ name: 'ImgOps', prefix: searchEngines.ImgOps, icon: imgOps },
 ]
 
-const searchKey = 'wolfie.image-utils.search'
+const searchKey = 'wolfie.media-utils.search'
 type SearchProps = { uri: string; reportError: (error: unknown) => void }
 
 function SearchSheet({ uri, reportError }: SearchProps) {
