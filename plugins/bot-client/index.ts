@@ -34,7 +34,6 @@ export default plugin<{ jsonStorage: AccountStorage }>({
 						type: 'route',
 						useTitle: () => 'Bot Client',
 						IconComponent: lookupGeneratedIconComponent('RobotIcon'),
-						useDescription: () => 'Manage and switch accounts',
 						screen: {
 							route: 'WolfieBotClient',
 							getComponent: () => () =>
